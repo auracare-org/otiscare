@@ -111,9 +111,11 @@
   }
 </script>
 
-<div class="card p-6" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
-  <h3 class="mb-2">{title}</h3>
-  <p class="text-sm text-neutral-600 mb-4">Upload an otoscopic image to assist otoscopy assessment.</p>
+<div>
+  {#if title}
+    <h3 class="mb-2">{title}</h3>
+    <p class="text-sm text-neutral-600 mb-4">Upload an otoscopic image to assist otoscopy assessment.</p>
+  {/if}
 
   {#if !file}
     <div

@@ -184,42 +184,52 @@
         {#key current.id}
           {#if current.type === 'decision'}
             {#if isOtoscopy(current)}
-              <ImageClassification
-                title={current.title ?? 'Otoscopic examination'}
-                onResult={(r) => {
-                  summary.diagnosis = r.diagnosis ?? null;
-                  summary.confidence = r.confidence ?? null;
-                  persist();
-                  r.label === 'pathological' ? go((current as DecisionNode).yes) : go((current as DecisionNode).no);
-                }}
-              />
-              <YesNo
-                question={current.question}
-                details={filterDetailsForAge(current.details)}
-                nodeId={(current as DecisionNode).id}
-                columns={isRiskNode(current) ? 3 : 2}
-                onSelections={(e) => {
-                  if (!e?.group) return;
-                  summary.selections[e.group] = e.total;
-                  persist();
-                }}
-                onYes={() => go((current as DecisionNode).yes)}
-                onNo={() => go((current as DecisionNode).no)}
-              />
+              <div class="card p-6 space-y-6" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
+                <div>
+                  <h3 class="mb-2">{current.title ?? 'Otoscopic examination'}</h3>
+                  <p class="text-sm text-neutral-600 mb-4">Upload an otoscopic image to assist otoscopy assessment.</p>
+                  <ImageClassification
+                    title=""
+                    onResult={(r) => {
+                      summary.diagnosis = r.diagnosis ?? null;
+                      summary.confidence = r.confidence ?? null;
+                      persist();
+                      r.label === 'pathological' ? go((current as DecisionNode).yes) : go((current as DecisionNode).no);
+                    }}
+                  />
+                </div>
+                <div class="border-t border-neutral-200 pt-6">
+                  <YesNo
+                    question={current.question}
+                    details={filterDetailsForAge(current.details)}
+                    nodeId={(current as DecisionNode).id}
+                    columns={isRiskNode(current) ? 3 : 2}
+                    onSelections={(e) => {
+                      if (!e?.group) return;
+                      summary.selections[e.group] = e.total;
+                      persist();
+                    }}
+                    onYes={() => go((current as DecisionNode).yes)}
+                    onNo={() => go((current as DecisionNode).no)}
+                  />
+                </div>
+              </div>
             {:else if isYesNo(current)}
-              <YesNo
-                question={current.question}
-                details={filterDetailsForAge(current.details)}
-                nodeId={(current as DecisionNode).id}
-                columns={isRiskNode(current) ? 3 : 2}
-                onSelections={(e) => {
-                  if (!e?.group) return;
-                  summary.selections[e.group] = e.total;
-                  persist();
-                }}
-                onYes={() => go((current as DecisionNode).yes)}
-                onNo={() => go((current as DecisionNode).no)}
-              />
+              <div class="card p-6 card-hover" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
+                <YesNo
+                  question={current.question}
+                  details={filterDetailsForAge(current.details)}
+                  nodeId={(current as DecisionNode).id}
+                  columns={isRiskNode(current) ? 3 : 2}
+                  onSelections={(e) => {
+                    if (!e?.group) return;
+                    summary.selections[e.group] = e.total;
+                    persist();
+                  }}
+                  onYes={() => go((current as DecisionNode).yes)}
+                  onNo={() => go((current as DecisionNode).no)}
+                />
+              </div>
             {:else if hasChoices(current)}
               <MultipleChoice
                 prompt={current.question ?? current.title ?? 'Choose an option'}

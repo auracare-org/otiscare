@@ -14,7 +14,7 @@
   }>();
 </script>
 
-<div class="card p-6 card-hover" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
+<div>
   {#if question}
     <h3 class="mb-3">{question}</h3>
   {/if}
