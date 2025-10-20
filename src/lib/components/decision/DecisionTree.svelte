@@ -163,15 +163,15 @@
   });
 </script>
 
-  <div class="space-y-4" bind:this={container}>
-    <div class="flex items-center justify-between" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
+  <div class="space-y-6" bind:this={container}>
+    <div class="flex items-center justify-between mb-2" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
       <div class="text-xs text-neutral-500">Path: {path.join(' → ')}</div>
       {#if stack.length}
         <button class="btn btn-secondary" on:click={back} aria-label="Go back">← Back</button>
       {/if}
     </div>
 
-    <div class="md:grid md:grid-cols-[1fr_280px] md:gap-4 items-start">
+    <div class="md:grid md:grid-cols-[1fr_280px] md:gap-6 items-start">
       <div>
         {#if summary.strategy}
           <div class="mb-3">

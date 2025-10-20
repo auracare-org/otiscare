@@ -19,13 +19,6 @@
     previewUrl = file ? URL.createObjectURL(file) : null;
   }
 
-  import { env as pubenv } from '$env/dynamic/public';
-
-  const DEFAULT_BINARY = 'https://pytorch-binary-screening-97937849866.us-central1.run.app/predict';
-  const DEFAULT_MULTICLASS = 'https://pytorch-multiclass-diagnostic-97937849866.us-central1.run.app/predict';
-  const BINARY_ENDPOINT = pubenv.PUBLIC_BINARY_ENDPOINT || DEFAULT_BINARY;
-  const MULTICLASS_ENDPOINT = pubenv.PUBLIC_MULTICLASS_ENDPOINT || DEFAULT_MULTICLASS;
-
   function fileToBase64Browser(file: File) {
     return new Promise<string>((resolve, reject) => {
       const reader = new FileReader();
@@ -48,15 +41,13 @@
     loading = true;
     try {
       const base64Image = await fileToBase64Browser(file);
-      const patientId = 'web-client';
 
       // Stage 1: Binary screening
-      const screeningRes = await fetch(BINARY_ENDPOINT, {
+      const screeningRes = await fetch('/api/infer?stage=binary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           image: base64Image,
-          patient_id: patientId,
           apply_medical_enhancement: true
         })
       });
@@ -72,10 +63,10 @@
       }
 
       // Stage 2: Multiclass diagnosis
-      const diagnosisRes = await fetch(MULTICLASS_ENDPOINT, {
+      const diagnosisRes = await fetch('/api/infer?stage=multiclass', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ image: base64Image, patient_id: patientId })
+        body: JSON.stringify({ image: base64Image })
       });
       const diagnosis = await diagnosisRes.json();
       if (!diagnosis.success || !diagnosis.prediction) throw new Error('Diagnosis failed');
@@ -94,21 +85,25 @@
 </script>
 
 <div class="card p-6 space-y-4" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
-  <h3 class="mb-1">{title}</h3>
-  <p class="text-sm text-neutral-600">Upload an otoscopic image to assist otoscopy assessment.</p>
+  <h3 class="mb-2">{title}</h3>
+  <p class="text-sm text-neutral-600 mb-4">Upload an otoscopic image to assist otoscopy assessment.</p>
 
-  <div class="flex items-center gap-3">
-    <input type="file" accept="image/*" on:change={onFileChange} />
-    <button class="btn btn-primary" disabled={loading} on:click={classify}>
+  <div class="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-4">
+    <input type="file" accept="image/*" on:change={onFileChange} class="w-full sm:w-auto" />
+    <button class="btn btn-primary w-full sm:w-auto" disabled={loading} on:click={classify}>
       {loading ? 'Classifying…' : 'Classify Image'}
     </button>
   </div>
 
   {#if previewUrl}
-    <img src={previewUrl} alt="preview" class="max-h-56 rounded border border-neutral-200" />
+    <div class="mt-4">
+      <img src={previewUrl} alt="preview" class="max-h-56 rounded border border-neutral-200 mx-auto" />
+    </div>
   {/if}
 
   {#if error}
-    <p class="text-sm text-red-600">{error}</p>
+    <div class="mt-4">
+      <p class="text-sm text-red-600">{error}</p>
+    </div>
   {/if}
 </div>

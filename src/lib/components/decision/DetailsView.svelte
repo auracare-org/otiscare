@@ -70,8 +70,8 @@
   {#if interactive}
     <div class="space-y-2">
       {#each data as item, i (i)}
-        <label class="flex items-start gap-2" in:fly={{ x: motion.fromRightX, delay: i * motion.delayStepSm, duration: motion.durationItemIn }}>
-          <input type="checkbox" class="mt-1" on:change={() => toggleSel('list', i)} />
+        <label class="flex items-start gap-3" in:fly={{ x: motion.fromRightX, delay: i * motion.delayStepSm, duration: motion.durationItemIn }}>
+          <input type="checkbox" class="flex-shrink-0" on:change={() => toggleSel('list', i)} />
           <span>{String(item)}</span>
         </label>
       {/each}
@@ -96,8 +96,8 @@
           <div class="font-medium text-neutral-700">{formatKey(key)}</div>
           <div class="space-y-2">
             {#each value as v, j (j)}
-              <label class="flex items-start gap-2">
-                <input type="checkbox" class="mt-1" on:change={() => toggleSel(key, j)} />
+              <label class="flex items-start gap-3">
+                <input type="checkbox" class="flex-shrink-0" on:change={() => toggleSel(key, j)} />
                 <span>{v}</span>
               </label>
             {/each}

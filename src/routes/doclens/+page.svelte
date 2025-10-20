@@ -166,11 +166,10 @@
 		<div class="flex-1">
 			<div class="card p-8">
 				<h1 class="mb-2 text-center">DocLens</h1>
-				<p class="mb-4 text-center text-neutral-700">
-					Upload an otoscopic image to run both endpoints.
+				<p class="mb-6 text-center text-neutral-700">Upload an otoscopic image to run both endpoints.</p>
 					{#if !file}
 						<div
-							class={`rounded-xl border-2 bg-white/60 p-6 ${dragging ? 'border-solid border-primary-600' : 'border-dashed'}`}
+							class={`rounded-xl border-2 bg-white/60 p-8 mt-2 ${dragging ? 'border-solid border-primary-600' : 'border-dashed'}`}
 							on:dragover={onDragOver}
 							on:dragleave={onDragLeave}
 							on:drop={onDrop}
@@ -200,7 +199,7 @@
 						</div>
 					{:else}
 						<div
-							class="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-neutral-100 bg-white/70 p-4"
+							class="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-neutral-100 bg-white/70 p-4 mt-2"
 						>
 							<div class="flex items-center gap-3">
 								{#if previewUrl}
@@ -237,11 +236,10 @@
 							/>
 						</div>
 					{/if}
-				</p>
 			</div>
 
 			{#if res1 || res2}
-				<div class="mb-4 card p-4">
+				<div class="mt-6 mb-4 card p-4">
 					<div class="flex flex-wrap items-center justify-between gap-2">
 						<div class="flex flex-wrap items-center gap-2">
 							{#if res1?.prediction}
@@ -251,7 +249,7 @@
 									Stage 1: {res1?.prediction?.classification} ({pct(res1?.prediction?.confidence)})
 								</span>
 							{/if}
-							{#if res2?.prediction}
+							{#if res2?.prediction && res1?.prediction?.classification === 'pathological'}
 								<span
 									class="rounded bg-healthcare-100 px-2 py-1 text-xs font-medium text-healthcare-700"
 								>
@@ -295,7 +293,7 @@
 										class="rounded bg-neutral-100 px-2 py-1 text-xs font-medium text-neutral-700"
 										>Confidence: {pct(res1?.prediction?.confidence)}</span
 									>
-									{#if res1?.prediction?.requires_stage2 !== undefined}
+									{#if res1?.prediction?.classification === 'pathological' && res1?.prediction?.requires_stage2 !== undefined}
 										<span
 											class="rounded bg-neutral-100 px-2 py-1 text-xs font-medium text-neutral-700"
 											>Requires stage 2: {String(res1?.prediction?.requires_stage2)}</span
@@ -334,6 +332,7 @@
 								<p class="text-sm text-neutral-500">No response.</p>
 							{/if}
 						</div>
+						{#if res1?.prediction?.classification === 'pathological'}
 						<div class="space-y-3 card p-5">
 							<h3 class="mb-1">Stage 2 — Multiclass Diagnostic</h3>
 							{#if res2}
@@ -386,6 +385,7 @@
 								<p class="text-sm text-neutral-500">No response.</p>
 							{/if}
 						</div>
+						{/if}
 					</div>
 				</div>
 			{/if}
