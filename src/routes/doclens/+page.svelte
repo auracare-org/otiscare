@@ -87,19 +87,23 @@
 			lastBase64 = base64Image;
 			const payload = { image: base64Image };
 
-			const [r1, r2] = await Promise.all([
-				fetch('/api/infer?stage=binary', {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({ ...payload, apply_medical_enhancement: enhance })
-				}).then((r) => r.json()),
-				fetch('/api/infer?stage=multiclass', {
+			// Stage 1: Binary screening
+			const r1 = await fetch('/api/infer?stage=binary', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ ...payload, apply_medical_enhancement: enhance })
+			}).then((r) => r.json());
+			res1 = r1;
+
+			// Stage 2: Only call if pathological
+			let r2 = null;
+			if (r1?.prediction?.classification === 'pathological') {
+				r2 = await fetch('/api/infer?stage=multiclass', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(payload)
-				}).then((r) => r.json())
-			]);
-			res1 = r1;
+				}).then((r) => r.json());
+			}
 			res2 = r2;
 		} catch (e: any) {
 			error = e?.message || 'Request failed';
