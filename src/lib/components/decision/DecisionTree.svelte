@@ -24,6 +24,9 @@
     selections: {} as Record<string, number>
   });
 
+  // Store classifier result for otoscopy node
+  let classifierResult: { label: string; confidence: number; diagnosis?: string } | null = $state(null);
+
   function persist() {
     try {
       localStorage.setItem('otoscopy.path', JSON.stringify(path));
@@ -84,6 +87,8 @@
     stack.push(current);
     current = next;
     path.push(next.id);
+    // Clear classifier result when moving to next node
+    classifierResult = null;
     await tick();
     // Smoothly scroll the active card into view to emphasize downward flow
     container?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -95,6 +100,8 @@
     const prev = stack.pop()!;
     if (path.length > 1) path.pop();
     current = prev;
+    // Clear classifier result when going back
+    classifierResult = null;
     await tick();
     container?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     persist();
@@ -186,15 +193,16 @@
             {#if isOtoscopy(current)}
               <div class="card p-6 space-y-6" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
                 <div>
-                  <h3 class="mb-2">{current.title ?? 'Otoscopic examination'}</h3>
+                  <h3 class="mb-2">{current.title ?? 'Otoscopic examination (gateway point)'}</h3>
                   <p class="text-sm text-neutral-600 mb-4">Upload an otoscopic image to assist otoscopy assessment.</p>
                   <ImageClassification
                     title=""
                     onResult={(r) => {
-                      summary.diagnosis = r.diagnosis ?? null;
-                      summary.confidence = r.confidence ?? null;
+                      // Store the result in summary for side panel display
+                      classifierResult = r;
+                      summary.diagnosis = r.label;
+                      summary.confidence = r.confidence;
                       persist();
-                      r.label === 'pathological' ? go((current as DecisionNode).yes) : go((current as DecisionNode).no);
                     }}
                   />
                 </div>
