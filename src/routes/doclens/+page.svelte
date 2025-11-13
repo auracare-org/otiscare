@@ -162,18 +162,18 @@
 	}
 </script>
 
-<section class="container mx-auto max-w-5xl px-4 py-10">
+<section class="container mx-auto max-w-5xl px-4 overflow-y-auto" style="height: calc(100vh - 3.5rem); padding-top: 1.5rem; padding-bottom: 1.5rem;">
 	<div
 		class="flex items-start gap-6"
 		in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}
 	>
 		<div class="flex-1">
-			<div class="card p-8">
+			<div class="card p-6">
 				<h1 class="mb-2 text-center">DocLens</h1>
-				<p class="mb-6 text-center text-neutral-700">Upload an otoscopic image to run both endpoints.</p>
+				<p class="mb-4 text-center text-neutral-700">Upload an otoscopic image to run both endpoints.</p>
 					{#if !file}
 						<div
-							class={`rounded-xl border-2 bg-white/60 p-8 mt-2 ${dragging ? 'border-solid border-primary-600' : 'border-dashed'}`}
+							class={`rounded-xl border-2 bg-white/60 p-6 mt-2 ${dragging ? 'border-solid border-primary-600' : 'border-dashed'}`}
 							on:dragover={onDragOver}
 							on:dragleave={onDragLeave}
 							on:drop={onDrop}
@@ -203,7 +203,7 @@
 						</div>
 					{:else}
 						<div
-							class="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-neutral-100 bg-white/70 p-4 mt-2"
+							class="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-neutral-100 bg-white/70 p-3 mt-2"
 						>
 							<div class="flex items-center gap-3">
 								{#if previewUrl}
@@ -243,7 +243,7 @@
 			</div>
 
 			{#if res1 || res2}
-				<div class="mt-6 mb-4 card p-4">
+				<div class="mt-4 mb-3 card p-3">
 					<div class="flex flex-wrap items-center justify-between gap-2">
 						<div class="flex flex-wrap items-center gap-2">
 							{#if res1?.prediction}
@@ -272,9 +272,9 @@
 					</div>
 				</div>
 
-				<div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+				<div class="mt-4 grid grid-cols-1 gap-3 md:grid-cols-3">
 					{#if previewUrl}
-						<div class="flex flex-col items-center justify-start card p-4">
+						<div class="flex flex-col items-center justify-start card p-3">
 							<div class="mb-2 font-medium">Uploaded Image</div>
 							<img
 								src={previewUrl}
@@ -283,8 +283,8 @@
 							/>
 						</div>
 					{/if}
-					<div class="grid grid-cols-1 gap-4 md:col-span-2 md:grid-cols-2">
-						<div class="space-y-3 card p-5">
+					<div class="grid grid-cols-1 gap-3 md:col-span-2 md:grid-cols-2">
+						<div class="space-y-2 card p-4">
 							<h3 class="mb-1">Stage 1 — Binary Screening</h3>
 							{#if res1}
 								<div class="mt-2 flex flex-wrap gap-2">
@@ -337,7 +337,7 @@
 							{/if}
 						</div>
 						{#if res1?.prediction?.classification === 'pathological'}
-						<div class="space-y-3 card p-5">
+						<div class="space-y-2 card p-4">
 							<h3 class="mb-1">Stage 2 — Multiclass Diagnostic</h3>
 							{#if res2}
 								<div class="mt-2 flex flex-wrap gap-2">

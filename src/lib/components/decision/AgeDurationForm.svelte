@@ -31,9 +31,9 @@
   }
 </script>
 
-<form class="card p-8 w-full max-w-xl space-y-5" on:submit={submit} in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
+<form class="card p-6 w-full max-w-xl space-y-4" on:submit={submit} in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
   <h3 class="text-2xl">Patient Details</h3>
-  <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <label class="flex flex-col gap-2">
       <span class="text-sm text-neutral-600">Date of Birth</span>
       <input class="border rounded px-3 py-2" type="date" bind:value={dateOfBirth} required max={new Date().toISOString().split('T')[0]} />
@@ -43,7 +43,7 @@
       <input class="border rounded px-3 py-2" type="number" min="0" bind:value={durationDays} required />
     </label>
   </div>
-  <div class="pt-2">
+  <div class="pt-1">
     <button type="submit" class="btn btn-healthcare btn-lg w-full">Continue</button>
   </div>
 </form>
