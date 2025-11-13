@@ -1,13 +1,10 @@
 import type { RequestHandler } from '@sveltejs/kit';
 import { env as priv } from '$env/dynamic/private';
 
-const DEFAULT_BINARY = 'https://pytorch-binary-screening-97937849866.us-central1.run.app/predict';
-const DEFAULT_MULTICLASS = 'https://pytorch-multiclass-diagnostic-97937849866.us-central1.run.app/predict';
-
 function getEndpoint(stage: 'binary' | 'multiclass') {
   // Allow either PUBLIC_ or server-side variables if defined
-  const be = priv.PUBLIC_BINARY_ENDPOINT || priv.BINARY_ENDPOINT || DEFAULT_BINARY;
-  const me = priv.PUBLIC_MULTICLASS_ENDPOINT || priv.MULTICLASS_ENDPOINT || DEFAULT_MULTICLASS;
+  const be = priv.PUBLIC_BINARY_ENDPOINT || priv.BINARY_ENDPOINT;
+  const me = priv.PUBLIC_MULTICLASS_ENDPOINT || priv.MULTICLASS_ENDPOINT;
   return stage === 'binary' ? be : me;
 }
 

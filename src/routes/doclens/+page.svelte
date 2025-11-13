@@ -3,11 +3,8 @@
 	import { fly } from 'svelte/transition';
 	import { motion } from '$lib/ui/motion';
 
-	const DEFAULT_BINARY = 'https://pytorch-binary-screening-97937849866.us-central1.run.app/predict';
-	const DEFAULT_MULTICLASS =
-		'https://pytorch-multiclass-diagnostic-97937849866.us-central1.run.app/predict';
-	const BINARY_ENDPOINT = pubenv.PUBLIC_BINARY_ENDPOINT || DEFAULT_BINARY;
-	const MULTICLASS_ENDPOINT = pubenv.PUBLIC_MULTICLASS_ENDPOINT || DEFAULT_MULTICLASS;
+	const BINARY_ENDPOINT = pubenv.PUBLIC_BINARY_ENDPOINT;
+	const MULTICLASS_ENDPOINT = pubenv.PUBLIC_MULTICLASS_ENDPOINT;
 
 	let file: File | null = null;
 	let previewUrl: string | null = null;
