@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { ActionNode, TreatmentNode } from './types';
-  import { fly } from 'svelte/transition';
+  import { fly, slide } from 'svelte/transition';
   import { motion } from '$lib/ui/motion';
 
   let { node } = $props<{ node: ActionNode | TreatmentNode }>();
@@ -24,7 +24,7 @@
   {#if Array.isArray((node as any).actions)}
     <ul class="list-disc pl-5 text-neutral-700">
       {#each (node as any).actions as a, i (a)}
-        <li in:slide={{ y: motion.slideItemY, delay: i * motion.delayStep, duration: motion.durationItemIn }}>{a}</li>
+        <li in:fly={{ y: motion.slideItemY, delay: i * motion.delayStep, duration: motion.durationItemIn }}>{a}</li>
       {/each}
     </ul>
   {/if}

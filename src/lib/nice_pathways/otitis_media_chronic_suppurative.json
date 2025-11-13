@@ -1,0 +1,157 @@
+{
+  "pathway": "Pharmacy First – Chronic Suppurative Otitis Media (CSOM) – adolescents and adults",
+  "metadata": {
+    "version": "0.6",
+    "lastUpdated": "2025-11-12",
+    "sources": [
+      "https://cks.nice.org.uk/topics/otitis-media-chronic-suppurative/",
+      "https://patient.info/ears-nose-throat-mouth/ear-problems/chronic-suppurative-otitis-media",
+      "https://www.entuk.org/resources/hp-resources/consent/"
+    ],
+    "niceGuideline": "CKS Chronic suppurative otitis media"
+  },
+  "notes": [
+    "CSOM describes persistent otorrhoea through a tympanic membrane perforation (≥6 weeks) and carries risk of cholesteatoma.",
+    "Document baseline hearing, duration of discharge, and any previous ear surgery.",
+    "Topical quinolone drops are preferred when available; avoid aminoglycosides if the middle ear is open to reduce ototoxic risk.",
+    "Always safety-net for intracranial complications — worsening headache, vertigo, facial palsy or systemic illness requires urgent assessment."
+  ],
+  "decisionTree": {
+    "id": "start",
+    "type": "decision",
+    "title": "Confirm CSOM features",
+    "question": "Is there persistent or recurrent otorrhoea through a perforated tympanic membrane for ≥6 weeks?",
+    "details": [
+      "Chronic mucoid or purulent discharge, often foul smelling",
+      "History of previous acute otitis media, trauma or grommet insertion",
+      "Conductive hearing loss, tympanic membrane perforation or retraction pocket",
+      "Exclude otitis externa (tender tragus/pinna) or acute mastoiditis"
+    ],
+    "yes": {
+      "id": "csom_red_flags",
+      "type": "decision",
+      "title": "Red-flag complications",
+      "question": "Does the patient have suspected complications?",
+      "details": {
+        "emergency": [
+          "Severe headache, photophobia, vomiting or neurological deficit (intracranial spread)",
+          "Facial nerve weakness, vertigo or nystagmus",
+          "Post-auricular swelling, mastoid tenderness, systemically very unwell"
+        ],
+        "cholesteatoma": [
+          "Offensive discharge with granulation tissue or polyp in canal",
+          "History of attic retraction pocket or keratin debris",
+          "Progressive conductive hearing loss despite dry ear"
+        ]
+      },
+      "yes": {
+        "id": "urgent_ent_referral",
+        "type": "action",
+        "title": "Immediate ENT referral",
+        "actions": [
+          "Escalate care via GP, ENT on-call or A&E depending on severity; consider intravenous antibiotics.",
+          "Document neurological findings and do not instil drops if intracranial spread suspected."
+        ],
+        "safetyNet": true
+      },
+      "no": {
+        "id": "exclusion_review",
+        "type": "decision",
+        "title": "Eligibility for community management",
+        "question": "Screen for Pharmacy First exclusions",
+        "details": [
+          "Under 12 years of age or unable to comply with ear-drop technique",
+          "Recent ear surgery (<6 weeks) other than grommet removal",
+          "Known cholesteatoma on ENT follow-up",
+          "Aminoglycoside allergy or previous ototoxic reaction",
+          "Systemic symptoms (fever, severe pain) despite oral therapy"
+        ],
+        "yes": {
+          "id": "gp_followup",
+          "type": "action",
+          "title": "Refer to GP or ENT clinic",
+          "actions": [
+            "Arrange routine ENT/audiology appointment and provide interim ear-care advice.",
+            "Advise patient to keep ear dry and avoid swimming until reviewed."
+          ],
+          "safetyNet": true
+        },
+        "no": {
+          "id": "swab_history",
+          "type": "decision",
+          "title": "Previous cultures or antibiotic exposure",
+          "question": "Has the patient used topical or oral antibiotics in the last month?",
+          "yes": {
+            "id": "treatment_failure_referral",
+            "type": "action",
+            "title": "Treatment failure pathway",
+            "actions": [
+              "Arrange culture-guided therapy via GP/ENT; advise against repeating same empirical agent.",
+              "Provide analgesia and reinforce dry ear precautions."
+            ],
+            "safetyNet": true
+          },
+          "no": {
+            "id": "topical_choice",
+            "type": "decision",
+            "title": "Select topical therapy",
+            "question": "Is a quinolone drop available under local PGD?",
+            "choices": [
+              {
+                "label": "Ciprofloxacin 0.3% ear drops available",
+                "next": {
+                  "id": "ciprofloxacin_plan",
+                  "type": "treatment",
+                  "title": "Ciprofloxacin 0.3% ear drops",
+                  "drug": "Ciprofloxacin 0.3%",
+                  "durationDays": 7,
+                  "dose": {
+                    "age": "≥12 years",
+                    "regimen": "5 drops into affected ear(s) twice daily after thorough aural toilet"
+                  },
+                  "formulations": [
+                    "Single-use vials or 5 mL dropper bottle"
+                  ],
+                  "route": "Topical otic",
+                  "legalCategory": "POM (PGD/off-label)",
+                  "plus": [
+                    "Position patient with ear upward for 5 minutes after dosing; gently pump tragus.",
+                    "If discharge is thick, wick or microsuction prior to first dose where available.",
+                    "Arrange review in 7 days; extend to 14 days only if improving but not yet dry."
+                  ],
+                  "followUp": "Return if no improvement in 3–5 days or if vertigo/tinnitus worsens",
+                  "safetyNet": true,
+                  "referralIfWorsen": true
+                }
+              },
+              {
+                "label": "No quinolone PGD available",
+                "next": {
+                  "id": "alternate_plan",
+                  "type": "action",
+                  "title": "Alternative management",
+                  "actions": [
+                    "Arrange GP/ENT review for prescription of topical quinolone or systemic therapy.",
+                    "Consider acetic acid 2% for mild discharge while awaiting review, ensuring no pain or cellulitis.",
+                    "Provide written safety-net advice for meningitis signs, sudden hearing loss or worsening pain."
+                  ],
+                  "safetyNet": true
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "no": {
+      "id": "csom_not_confirmed",
+      "type": "action",
+      "title": "Diagnosis uncertain",
+      "actions": [
+        "If discharge duration <6 weeks or TM intact, follow acute otitis media or otitis externa pathways.",
+        "Consider referral for otomicroscopy to confirm perforation or cholesteatoma."
+      ],
+      "safetyNet": true
+    }
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "pathway": "Pharmacy First – Otitis Media with Effusion (Glue Ear) – children and young people",
+  "metadata": {
+    "version": "0.7",
+    "lastUpdated": "2025-11-12",
+    "sources": [
+      "https://cks.nice.org.uk/topics/otitis-media-with-effusion/",
+      "https://www.nhs.uk/conditions/glue-ear/",
+      "https://www.nice.org.uk/guidance/ng98"
+    ],
+    "niceGuideline": "CKS Otitis media with effusion"
+  },
+  "notes": [
+    "Glue ear is usually self-limiting; 50% resolve within 3 months. Focus on watchful waiting, hearing surveillance and speech development.",
+    "Exclude acute otitis media, cholesteatoma, or sensorineural hearing loss before labelling glue ear.",
+    "Children with Down's syndrome, cleft palate or craniofacial syndromes warrant early ENT review regardless of duration.",
+    "Discuss auto-inflation devices (Otovent®) for children ≥3 years who can cooperate, alongside allergy management if indicated."
+  ],
+  "decisionTree": {
+    "id": "start",
+    "type": "decision",
+    "title": "Presentation",
+    "question": "Are symptoms consistent with glue ear (otitis media with effusion)?",
+    "details": {
+      "suggestive": [
+        "Fluctuating conductive hearing loss or inattentiveness",
+        "Aural fullness, popping, imbalance without acute pain",
+        "Recent upper respiratory tract infection",
+        "Flat tympanogram or visible fluid level behind intact tympanic membrane if otoscope/tympanometer available"
+      ],
+      "exclude": [
+        "Fever, acute otalgia or bulging TM (consider acute otitis media)",
+        "Recurrent foul-smelling otorrhoea (consider chronic suppurative otitis media)",
+        "Sudden sensorineural hearing loss (medical emergency)"
+      ]
+    },
+    "yes": {
+      "id": "red_flags",
+      "type": "decision",
+      "title": "Urgent considerations",
+      "question": "Does the child meet ANY urgent referral criteria?",
+      "details": {
+        "emergency": [
+          "Acute mastoiditis signs: post-auricular swelling, protruding pinna, severe systemic illness",
+          "Facial nerve weakness, vertigo or meningitis symptoms"
+        ],
+        "sameDay": [
+          "Sudden hearing loss <72 hours",
+          "Immunocompromised or cochlear implant recipients with suspected middle-ear effusion"
+        ]
+      },
+      "yes": {
+        "id": "urgent_pathway",
+        "type": "action",
+        "title": "Emergency/same-day referral",
+        "actions": [
+          "Escalate via GP, ENT on-call or A&E depending on severity (consider NEWS2).",
+          "Do not initiate decongestants or antibiotics; prioritise timely review."
+        ],
+        "safetyNet": true
+      },
+      "no": {
+        "id": "risk_group",
+        "type": "decision",
+        "title": "High-risk groups",
+        "question": "Is the patient in a high-risk group for persistent glue ear?",
+        "details": [
+          "Down's syndrome, cleft palate or craniofacial abnormality",
+          "Permanent childhood hearing impairment or speech/language delay",
+          "Significant learning difficulty or developmental regression"
+        ],
+        "yes": {
+          "id": "high_risk_referral",
+          "type": "action",
+          "title": "Expedite ENT/audiology",
+          "actions": [
+            "Arrange ENT or paediatric audiology referral within 6 weeks.",
+            "Share written advice on communication tactics (face the child, reduce background noise) while awaiting assessment."
+          ],
+          "safetyNet": true
+        },
+        "no": {
+          "id": "duration_check",
+          "type": "decision",
+          "title": "Duration of effusion",
+          "question": "How long have symptoms persisted?",
+          "choices": [
+            {
+              "label": "< 3 months",
+              "next": {
+                "id": "watchful_waiting",
+                "type": "action",
+                "title": "Watchful waiting and conservative management",
+                "actions": [
+                  "Educate carers that most cases resolve within 3 months; avoid routine antibiotics, antihistamines or decongestants.",
+                  "Recommend auto-inflation (Otovent®) twice daily if child can cooperate and there is no acute infection.",
+                  "Address contributory allergic rhinitis with saline sprays or GP-prescribed intranasal steroids.",
+                  "Arrange follow-up in ~6 weeks to review hearing concerns."
+                ],
+                "safetyNet": true
+              }
+            },
+            {
+              "label": "≥ 3 months or recurrent episodes",
+              "next": {
+                "id": "impact_assessment",
+                "type": "decision",
+                "title": "Assess functional impact",
+                "question": "Is there documented hearing loss ≥ 25 dB in best ear OR speech, language or educational concerns?",
+                "details": [
+                  "Use school reports, parental observations, or prior audiograms if available.",
+                  "Consider unilateral cases with significant listening difficulties."
+                ],
+                "yes": {
+                  "id": "ent_referral",
+                  "type": "action",
+                  "title": "Refer for audiology/ENT",
+                  "actions": [
+                    "Arrange formal audiometry and ENT review (possible grommets ± adenoidectomy) within 6–12 weeks.",
+                    "Document the duration of effusion and impact on daily life."
+                  ],
+                  "safetyNet": true
+                },
+                "no": {
+                  "id": "enhanced_self_management",
+                  "type": "action",
+                  "title": "Enhanced self-management",
+                  "actions": [
+                    "Continue watchful waiting up to 6 months total with regular monitoring.",
+                    "Provide school-based listening tactics (sitting near teacher, preferential seating).",
+                    "Offer written resources for parents on speech and language stimulation.",
+                    "Reassess sooner if new symptoms develop (pain, fever, otorrhoea)."
+                  ],
+                  "safetyNet": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "no": {
+      "id": "alt_diagnosis",
+      "type": "action",
+      "title": "Reconsider diagnosis",
+      "actions": [
+        "If there is acute pain or fever, switch to the acute otitis media pathway.",
+        "Persistent offensive discharge suggests chronic suppurative otitis media; use that workflow.",
+        "Consider temporomandibular dysfunction, eustachian tube dysfunction without effusion, or behavioural causes of inattention."
+      ],
+      "safetyNet": true
+    }
+  }
+}

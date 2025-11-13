@@ -21,6 +21,15 @@ export const POST: RequestHandler = async ({ request, url }) => {
     }
 
     const endpoint = getEndpoint(stage);
+    if (!endpoint) {
+      return new Response(
+        JSON.stringify({ success: false, error: `Missing ${stage} inference endpoint configuration` }),
+        {
+          status: 500,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      );
+    }
 
     const payload = stage === 'binary'
       ? { image, apply_medical_enhancement: apply_medical_enhancement ?? true }
@@ -47,4 +56,3 @@ export const POST: RequestHandler = async ({ request, url }) => {
     });
   }
 };
-

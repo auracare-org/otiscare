@@ -16,7 +16,7 @@
     {#each options as opt, i (opt.value)}
       <button
         class="btn btn-healthcare btn-lg"
-        on:click={() => onSelect(opt.value)}
+        onclick={() => onSelect(opt.value)}
         aria-label={opt.label}
         in:fly={{ x: motion.fromRightX, delay: i * motion.delayStep, duration: motion.durationItemIn }}
       >

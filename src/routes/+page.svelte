@@ -1,106 +1,41 @@
 <script lang="ts">
-	import pathway from '$lib/nice_pathways/acute_otitis_media.json';
-	import AgeDurationForm from '$lib/components/decision/AgeDurationForm.svelte';
-	import DecisionTree from '$lib/components/decision/DecisionTree.svelte';
-	import PathwayFooter from '$lib/components/decision/PathwayFooter.svelte';
-	import type { PatientHistory as PH, DecisionNode } from '$lib/components/decision/types';
-	import { fly } from 'svelte/transition';
-	import { motion } from '$lib/ui/motion';
-	import { onMount } from 'svelte';
-
-	const aom = pathway as any;
-	const root: DecisionNode = aom.decisionTree;
-	const notes: string[] = aom.notes ?? [];
-	const metadata = aom.metadata ?? {};
-
-	type Step = 'landing' | 'age' | 'tree';
-	let step: Step = $state('landing');
-	let history: PH = $state({});
-
-	function handleStart() {
-		step = 'age';
-		try {
-			localStorage.setItem('otoscopy.step', 'age');
-		} catch {}
-	}
-
-	function handleAgeSubmit(partial: Pick<PH, 'age' | 'durationDays'>) {
-		history = { ...history, ...partial };
-		step = 'tree';
-		try {
-			localStorage.setItem('otoscopy.history', JSON.stringify(history));
-			localStorage.setItem('otoscopy.step', 'tree');
-		} catch {}
-	}
-
-	function handleStartOver() {
-		history = {} as PH;
-		step = 'landing';
-		try {
-			localStorage.removeItem('otoscopy.step');
-			localStorage.removeItem('otoscopy.history');
-			localStorage.removeItem('otoscopy.path');
-			localStorage.removeItem('otoscopy.summary');
-			localStorage.removeItem('otoscopy.active');
-		} catch {}
-	}
-
-	onMount(() => {
-		try {
-			const savedHistory = localStorage.getItem('otoscopy.history');
-			const savedPath = localStorage.getItem('otoscopy.path');
-			if (savedHistory) history = JSON.parse(savedHistory);
-			if (savedPath) {
-				const arr = JSON.parse(savedPath);
-				if (Array.isArray(arr) && arr.length > 1 && arr[0] === root.id) {
-					step = 'tree';
-					localStorage.setItem('otoscopy.step', 'tree');
-					return;
-				}
-			}
-			const savedStep = localStorage.getItem('otoscopy.step');
-			if (savedStep === 'age') step = 'age';
-			else if (savedStep === 'tree') step = 'tree';
-		} catch {}
-	});
+  import { pathwayRegistry } from '$lib/pathways/registry';
 </script>
 
-<section class="flex flex-col" style="height: calc(100vh - 3.5rem);">
-	<div class="flex flex-1 items-center justify-center px-6 py-4 overflow-y-auto">
-		{#if step === 'landing'}
-			<div
-				class="w-full max-w-2xl text-center"
-				in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}
-			>
-				<h1 class="mb-3">Ear Infection Decision Support</h1>
-				<p class="mb-4 text-lg text-neutral-700">
-					Clinical pathway: Acute Otitis Media in children and young people (1–17 years). Use shared
-					decision-making and clinician global impression throughout.
-				</p>
-				<div class="mb-4 space-y-2 card p-5">
-					<h3 class="mb-1">About this assessment</h3>
-					<ul class="list-disc pl-5 text-left text-neutral-700">
-						{#each notes.slice(0, 3) as n, i (n)}
-							<li>{n}</li>
-						{/each}
-					</ul>
-				</div>
-				<button class="btn btn-healthcare btn-lg" on:click={handleStart}>Start Assessment</button>
-			</div>
-		{:else if step === 'age'}
-			<AgeDurationForm onSubmit={handleAgeSubmit} />
-		{:else}
-			<div class="w-full max-w-5xl" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
-				<DecisionTree {root} {history} />
-			</div>
-		{/if}
-	</div>
-	{#if step !== 'landing'}
-		<div class="container mx-auto px-4 py-3">
-			<div class="flex justify-end">
-				<button class="btn btn-secondary" on:click={handleStartOver}>Start Over</button>
-			</div>
-		</div>
-	{/if}
-	<PathwayFooter {metadata} />
+<section class="min-h-[calc(100vh-3.5rem)] bg-secondary-50 py-10 px-4">
+  <div class="mx-auto max-w-6xl space-y-8">
+    <header class="rounded-3xl bg-white p-8 shadow-lg">
+      <p class="text-sm uppercase tracking-wide text-healthcare-600 font-semibold">Clinical workspace</p>
+      <h1 class="text-4xl font-bold text-neutral-900 mt-2">Select a pathway</h1>
+      <p class="mt-3 text-neutral-700 max-w-3xl">
+        Launch structured decision support across Pharmacy First and other otology pathways. Choose a workflow below to capture history, run branching logic, and export a clinical summary.
+      </p>
+    </header>
+
+    <div class="grid gap-5 md:grid-cols-2">
+      {#each pathwayRegistry as entry (entry.slug)}
+        <article class="card p-6 space-y-3 hover:shadow-xl transition-shadow">
+          <div class="flex items-center justify-between">
+            <h2 class="text-2xl font-semibold">{entry.title}</h2>
+            <span class="text-xs uppercase tracking-wide text-neutral-500">{entry.ageRange}</span>
+          </div>
+          <p class="text-sm text-neutral-600">{entry.subtitle}</p>
+          {#if entry.summaryPoints?.length}
+            <ul class="list-disc pl-5 text-sm text-neutral-700 space-y-1">
+              {#each entry.summaryPoints.slice(0, 3) as point (point)}
+                <li>{point}</li>
+              {/each}
+            </ul>
+          {/if}
+          <div class="flex flex-wrap gap-2 text-xs text-neutral-500">
+            <span class="rounded-full bg-neutral-100 px-3 py-1">{entry.setting}</span>
+            {#each entry.tags ?? [] as tag (tag)}
+              <span class="rounded-full bg-neutral-100 px-3 py-1">{tag}</span>
+            {/each}
+          </div>
+          <a class="btn btn-healthcare w-full justify-center" href={`/pathway/${entry.slug}`}>Launch assessment</a>
+        </article>
+      {/each}
+    </div>
+  </div>
 </section>

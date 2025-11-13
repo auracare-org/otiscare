@@ -5,8 +5,8 @@
 
   let { onSubmit } = $props<{ onSubmit: (history: Pick<PatientHistory, 'age' | 'durationDays'>) => void }>();
 
-  let dateOfBirth: string = '';
-  let durationDays: number | '' = '';
+  let dateOfBirth = $state('');
+  let durationDays = $state<number | ''>('');
 
   function calculateAge(dob: string): number | undefined {
     if (!dob) return undefined;
@@ -31,7 +31,7 @@
   }
 </script>
 
-<form class="card p-6 w-full max-w-xl space-y-4" on:submit={submit} in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
+<form class="card p-6 w-full max-w-xl space-y-4" onsubmit={submit} in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
   <h3 class="text-2xl">Patient Details</h3>
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     <label class="flex flex-col gap-2">
@@ -47,4 +47,3 @@
     <button type="submit" class="btn btn-healthcare btn-lg w-full">Continue</button>
   </div>
 </form>
-

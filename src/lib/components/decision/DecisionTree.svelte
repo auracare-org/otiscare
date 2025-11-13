@@ -4,40 +4,53 @@
   import YesNo from './views/YesNo.svelte';
   import MultipleChoice from './views/MultipleChoice.svelte';
   import ImageClassification from './views/ImageClassification.svelte';
-  import ActionSummary from './ActionSummary.svelte';
-  import type { TreeNode, DecisionNode, PatientHistory } from './types';
-  import { motion } from '$lib/ui/motion';
-  import SummaryPanel from './SummaryPanel.svelte';
+import ActionSummary from './ActionSummary.svelte';
+import type { TreeNode, DecisionNode, PatientHistory } from './types';
+import { motion } from '$lib/ui/motion';
+import SummaryPanel from './SummaryPanel.svelte';
 
-  let { root, history } = $props<{ root: DecisionNode; history: PatientHistory }>();
+let { root, history, storageKey = 'otoscopy' } = $props<{
+	root: DecisionNode;
+	history: PatientHistory;
+	storageKey?: string;
+}>();
 
-  // Navigation state: supports forward/back traversal
-  let current: TreeNode = $state(root);
-  const path: string[] = $state([root.id]);
-  const stack: TreeNode[] = $state([]);
-  const summary = $state({
-    age: history.age,
-    durationDays: history.durationDays,
-    strategy: null,
-    diagnosis: null,
-    confidence: null,
-    selections: {} as Record<string, number>
-  });
+type SummaryState = {
+	age?: number;
+	durationDays?: number;
+	strategy: 'immediate' | 'backup' | null;
+	diagnosis: string | null;
+	confidence: number | null;
+	selections: Record<string, number>;
+};
+
+// Navigation state: supports forward/back traversal
+let current: TreeNode = $state(root);
+const path: string[] = $state([root.id]);
+const stack: TreeNode[] = $state([]);
+const summary = $state<SummaryState>({
+	age: history.age,
+	durationDays: history.durationDays,
+	strategy: null,
+	diagnosis: null,
+	confidence: null,
+	selections: {}
+});
 
   // Store classifier result for otoscopy node
   let classifierResult: { label: string; confidence: number; diagnosis?: string } | null = $state(null);
 
   function persist() {
     try {
-      localStorage.setItem('otoscopy.path', JSON.stringify(path));
-      localStorage.setItem('otoscopy.summary', JSON.stringify(summary));
-      localStorage.setItem('otoscopy.active', '1');
+      localStorage.setItem(`${storageKey}.path`, JSON.stringify(path));
+      localStorage.setItem(`${storageKey}.summary`, JSON.stringify(summary));
+      localStorage.setItem(`${storageKey}.active`, '1');
     } catch {}
   }
 
   function tryRestore() {
     try {
-      const saved = localStorage.getItem('otoscopy.path');
+      const saved = localStorage.getItem(`${storageKey}.path`);
       if (!saved) return;
       const arr = JSON.parse(saved);
       if (!Array.isArray(arr) || arr.length < 1 || arr[0] !== root.id) return;
@@ -72,7 +85,7 @@
         path.splice(0, path.length, ...p);
         stack.splice(0, stack.length, ...st);
       }
-      const savedSummary = localStorage.getItem('otoscopy.summary');
+      const savedSummary = localStorage.getItem(`${storageKey}.summary`);
       if (savedSummary) {
         const s = JSON.parse(savedSummary);
         Object.assign(summary, s || {});
@@ -174,7 +187,7 @@
     <div class="flex items-center justify-between mb-2" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
       <div class="text-xs text-neutral-500">Path: {path.join(' → ')}</div>
       {#if stack.length}
-        <button class="btn btn-secondary" on:click={back} aria-label="Go back">← Back</button>
+        <button class="btn btn-secondary" onclick={back} aria-label="Go back">← Back</button>
       {/if}
     </div>
 
@@ -190,10 +203,11 @@
         {/if}
         {#key current.id}
           {#if current.type === 'decision'}
-            {#if isOtoscopy(current)}
+            {@const decisionNode = current as DecisionNode}
+            {#if isOtoscopy(decisionNode)}
               <div class="card p-6 space-y-6" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
                 <div>
-                  <h3 class="mb-2">{current.title ?? 'Otoscopic examination (gateway point)'}</h3>
+                  <h3 class="mb-2">{decisionNode.title ?? 'Otoscopic examination (gateway point)'}</h3>
                   <p class="text-sm text-neutral-600 mb-4">Upload an otoscopic image to assist otoscopy assessment.</p>
                   <ImageClassification
                     title=""
@@ -208,43 +222,43 @@
                 </div>
                 <div class="border-t border-neutral-200 pt-6">
                   <YesNo
-                    question={current.question}
-                    details={filterDetailsForAge(current.details)}
-                    nodeId={(current as DecisionNode).id}
-                    columns={isRiskNode(current) ? 3 : 2}
+                    question={decisionNode.question}
+                    details={filterDetailsForAge(decisionNode.details)}
+                    nodeId={decisionNode.id}
+                    columns={isRiskNode(decisionNode) ? 3 : 2}
                     onSelections={(e) => {
                       if (!e?.group) return;
                       summary.selections[e.group] = e.total;
                       persist();
                     }}
-                    onYes={() => go((current as DecisionNode).yes)}
-                    onNo={() => go((current as DecisionNode).no)}
+                    onYes={() => go(decisionNode.yes)}
+                    onNo={() => go(decisionNode.no)}
                   />
                 </div>
               </div>
-            {:else if isYesNo(current)}
+            {:else if isYesNo(decisionNode)}
               <div class="card p-6 card-hover" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
                 <YesNo
-                  question={current.question}
-                  details={filterDetailsForAge(current.details)}
-                  nodeId={(current as DecisionNode).id}
-                  columns={isRiskNode(current) ? 3 : 2}
+                  question={decisionNode.question}
+                  details={filterDetailsForAge(decisionNode.details)}
+                  nodeId={decisionNode.id}
+                  columns={isRiskNode(decisionNode) ? 3 : 2}
                   onSelections={(e) => {
                     if (!e?.group) return;
                     summary.selections[e.group] = e.total;
                     persist();
                   }}
-                  onYes={() => go((current as DecisionNode).yes)}
-                  onNo={() => go((current as DecisionNode).no)}
+                  onYes={() => go(decisionNode.yes)}
+                  onNo={() => go(decisionNode.no)}
                 />
               </div>
-            {:else if hasChoices(current)}
+            {:else if hasChoices(decisionNode)}
               <MultipleChoice
-                prompt={current.question ?? current.title ?? 'Choose an option'}
-                options={(current.choices ?? current.options ?? []).map((o: any, i: number) => ({ label: o.label ?? `Option ${i+1}`, value: String(i) }))}
+                prompt={decisionNode.question ?? decisionNode.title ?? 'Choose an option'}
+                options={(decisionNode.choices ?? decisionNode.options ?? []).map((o: any, i: number) => ({ label: o.label ?? `Option ${i+1}`, value: String(i) }))}
                 onSelect={(v) => {
                   const idx = Number(v);
-                  const arr: any[] = (current.choices ?? current.options ?? []);
+                  const arr: any[] = (decisionNode.choices ?? decisionNode.options ?? []);
                   const opt = arr[idx];
                   const label = String(opt?.label || '').toLowerCase();
                   if (label.includes('immediate')) summary.strategy = 'immediate';
@@ -255,9 +269,9 @@
               />
             {:else}
               <div class="card p-6" in:fly={{ x: motion.fromRightX, duration: motion.durationIn }}>
-                <h3>{current.title ?? 'Decision'}</h3>
-                {#if current.question}
-                <p class="mt-2">{current.question}</p>
+                <h3>{decisionNode.title ?? 'Decision'}</h3>
+                {#if decisionNode.question}
+                <p class="mt-2">{decisionNode.question}</p>
                 {/if}
               </div>
             {/if}

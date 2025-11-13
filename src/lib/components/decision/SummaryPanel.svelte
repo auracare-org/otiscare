@@ -8,7 +8,14 @@
     selections?: Record<string, number>;
   };
   let { summary, path } = $props<{ summary: Summary; path: string[] }>();
-  const marked = $derived(summary?.selections ? Object.values(summary.selections).reduce((a, b) => a + (b || 0), 0) : 0);
+  const marked = $derived(
+    summary?.selections
+      ? Object.values(summary.selections).reduce(
+          (total: number, value) => total + (typeof value === 'number' ? value : 0),
+          0
+        )
+      : 0
+  );
 </script>
 
 <aside class="card p-4 md:sticky md:top-20 space-y-3 text-sm">

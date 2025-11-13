@@ -1,0 +1,215 @@
+{
+  "pathway": "Pharmacy First – Otitis Externa (adults and children ≥ 1 year)",
+  "metadata": {
+    "version": "0.9",
+    "lastUpdated": "2025-11-12",
+    "sources": [
+      "https://cks.nice.org.uk/topics/otitis-externa/",
+      "https://www.nhs.uk/conditions/ear-infections-outer-ear/",
+      "https://patient.info/ears-nose-throat-mouth/ear-problems/otitis-externa"
+    ],
+    "niceGuideline": "CKS Otitis externa"
+  },
+  "notes": [
+    "Assess pain score, systemic upset, and risk of malignant otitis externa in people with diabetes or immunosuppression.",
+    "Only supply topical therapy if the tympanic membrane appears intact and there is no in-situ grommet.",
+    "Arrange same-day medical review if symptoms have persisted >3 weeks, if there is a history of radiotherapy to the temporal bone, or if topical therapy has failed within the past month.",
+    "Document shared decision-making, ear-care advice (keep ear dry, avoid self-cleaning) and safety-netting for all patients."
+  ],
+  "decisionTree": {
+    "id": "start",
+    "type": "decision",
+    "title": "Presenting features",
+    "question": "Are there symptoms consistent with diffuse otitis externa?",
+    "details": {
+      "cardinal": [
+        "Itchy, painful external ear canal with tenderness when moving the tragus or pinna",
+        "Otorrhoea or watery discharge without systemic illness",
+        "A feeling of fullness or conductive hearing loss",
+        "Recent water exposure, trauma from cotton buds or devices"
+      ],
+      "ruleOut": [
+        "Recurrent acute otitis media with perforation",
+        "Foreign body, impacted wax only, or referred dental/TMJ pain"
+      ]
+    },
+    "yes": {
+      "id": "urgent_red_flags",
+      "type": "decision",
+      "title": "Urgent red flags",
+      "question": "Does the patient meet ANY emergency criteria?",
+      "details": {
+        "systemicIllness": [
+          "Temperature ≥ 38.5 °C or rigors",
+          "Toxic appearance or rapidly spreading cellulitis of pinna/face",
+          "Severe otalgia out of proportion to findings"
+        ],
+        "malignantRisk": [
+          "Diabetes, immunosuppression or older age with granulation tissue",
+          "Cranial nerve palsy, trismus or severe nocturnal pain",
+          "Post-auricular swelling, suspected mastoiditis"
+        ]
+      },
+      "yes": {
+        "id": "urgent_referral",
+        "type": "action",
+        "title": "Emergency/same-day referral",
+        "actions": [
+          "Consider NEWS2; refer to A&E/ENT on-call or call 999 for sepsis or necrotising otitis externa.",
+          "Do not instil drops if TM integrity uncertain; keep patient nil by mouth if surgical review anticipated."
+        ],
+        "safetyNet": true
+      },
+      "no": {
+        "id": "primary_care_exclusions",
+        "type": "decision",
+        "title": "Exclusion criteria for pharmacy management",
+        "question": "Does the patient meet ANY exclusion criteria?",
+        "details": {
+          "criteria": [
+            "Tympanic membrane perforation, open mastoid cavity or grommet in situ",
+            "Recurrent episodes (>3 in 6 months), symptoms >3 weeks or treatment failure within 28 days",
+            "History of ear surgery (except grommets) or suspected cholesteatoma",
+            "Unilateral hearing loss with persistent discharge in high-risk patients (diabetes, immunosuppression)",
+            "Foreign body requiring instrumentation or traumatic injury"
+          ]
+        },
+        "yes": {
+          "id": "gp_same_day_referral",
+          "type": "action",
+          "title": "Same-day referral",
+          "actions": [
+            "Arrange assessment by General Practice, ENT clinic or community ear-care service.",
+            "Advise dry ear precautions, simple analgesia and avoidance of inserting objects into the ear canal."
+          ],
+          "safetyNet": true
+        },
+        "no": {
+          "id": "canal_obstruction_check",
+          "type": "decision",
+          "title": "Ear canal assessment",
+          "question": "Is the canal obstructed by debris/wax or is a wick required?",
+          "details": [
+            "Marked oedema with narrowing preventing drop penetration",
+            "Impacted debris obscuring the view of the tympanic membrane",
+            "Previous ENT advice for microsuction"
+          ],
+          "yes": {
+            "id": "aural_toilet_referral",
+            "type": "action",
+            "title": "Refer for aural toilet",
+            "actions": [
+              "Refer to an ear care clinic, ENT department or GP with microsuction access.",
+              "Do not syringe; advise the patient to keep ear dry and commence prescribed analgesia."
+            ],
+            "safetyNet": true
+          },
+          "no": {
+            "id": "severity_assessment",
+            "type": "decision",
+            "title": "Assess severity",
+            "question": "Choose the best description of the current episode",
+            "choices": [
+              {
+                "label": "Mild inflammation without oedema or cellulitis",
+                "next": {
+                  "id": "acetic_acid_plan",
+                  "type": "treatment",
+                  "title": "Acetic acid 2% spray plus self-care",
+                  "drug": "Acetic acid 2% (EarCalm® or equivalent)",
+                  "durationDays": 7,
+                  "dose": {
+                    "age": "≥1 year",
+                    "regimen": "1 spray (approx. 0.14 mL) into affected ear every 2–3 hours (max 3 times daily)"
+                  },
+                  "formulations": [
+                    "Metered-dose spray 2% w/v acetic acid"
+                  ],
+                  "route": "Topical otic",
+                  "legalCategory": "GSL / Pharmacy OTC",
+                  "plus": [
+                    "Offer regular analgesia (paracetamol ± ibuprofen)",
+                    "Advise to keep ears dry, stop using cotton buds and consider ear plugs for swimming once healed"
+                  ],
+                  "followUp": "Return if no improvement within 3 days or sooner if swelling/fever develops",
+                  "safetyNet": true,
+                  "referralIfWorsen": true
+                }
+              },
+              {
+                "label": "Moderate/severe pain or canal oedema but stable",
+                "next": {
+                  "id": "topical_antibiotic_plan",
+                  "type": "decision",
+                  "title": "Topical antibiotic/steroid strategy",
+                  "question": "Is aminoglycoside sensitivity or perforation suspected?",
+                  "details": [
+                    "Check allergy history for neomycin, framycetin or polymyxin",
+                    "Exclude perforation/grommet again before supplying drops"
+                  ],
+                  "yes": {
+                    "id": "ciprofloxacin_referral",
+                    "type": "action",
+                    "title": "Refer for alternative therapy",
+                    "actions": [
+                      "Arrange GP/ENT review for ciprofloxacin 0.3% ear drops (off-label) or oral therapy as indicated.",
+                      "Provide interim analgesia and reinforce ear-care measures."
+                    ],
+                    "safetyNet": true
+                  },
+                  "no": {
+                    "id": "neomycin_hc_treatment",
+                    "type": "treatment",
+                    "title": "Neomycin/polymyxin B/hydrocortisone ear drops",
+                    "drug": "Neomycin 3.5 mg/mL + polymyxin B 10,000 units/mL + hydrocortisone 10 mg/mL",
+                    "durationDays": 7,
+                    "dose": {
+                      "age": "≥12 years",
+                      "regimen": "3 drops into affected ear(s) three times daily after warming the bottle"
+                    },
+                    "formulations": [
+                      "Drops 10 mL bottle with dropper"
+                    ],
+                    "route": "Topical otic",
+                    "legalCategory": "POM (supplied via PGD)",
+                    "plus": [
+                      "Consider ear wick insertion if canal remains swollen; review in 48 hours",
+                      "Teach patient to lie with affected ear upward for at least 5 minutes after instillation"
+                    ],
+                    "followUp": "Review after 48 hours; refer if no improvement within 72 hours or if discharge persists beyond 7 days",
+                    "safetyNet": true,
+                    "referralIfWorsen": true
+                  }
+                }
+              },
+              {
+                "label": "Recurrent episode or significant dermatological component",
+                "next": {
+                  "id": "recurrent_management",
+                  "type": "action",
+                  "title": "Address underlying drivers",
+                  "actions": [
+                    "Consider allergic, eczematous or seborrhoeic causes; offer emollient around pinna and avoid irritants.",
+                    "Arrange GP review for dermatology input and potential prophylactic drops.",
+                    "Safety-net for sudden hearing loss, vertigo or new neurological deficits."
+                  ],
+                  "safetyNet": true
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "no": {
+      "id": "not_otitis_externa",
+      "type": "action",
+      "title": "Consider alternative diagnosis",
+      "actions": [
+        "Assess for acute otitis media, temporomandibular joint dysfunction, dental infection or neuropathic pain.",
+        "Provide symptomatic relief if appropriate and signpost to GP if pain persists or new red flags emerge."
+      ],
+      "safetyNet": true
+    }
+  }
+}

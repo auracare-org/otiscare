@@ -1,6 +1,7 @@
 <script lang="ts">
   import { fly } from 'svelte/transition';
   import { motion } from '$lib/ui/motion';
+  import RecursiveDetailsView from './DetailsView.svelte';
   let { data, interactive = false, columns = 2, group = undefined, onChange = undefined, copyable = true } = $props<{
     data: unknown;
     interactive?: boolean;
@@ -71,13 +72,13 @@
     <div class="space-y-2">
       {#each data as item, i (i)}
         <label class="flex items-start gap-3" in:fly={{ x: motion.fromRightX, delay: i * motion.delayStepSm, duration: motion.durationItemIn }}>
-          <input type="checkbox" class="flex-shrink-0" on:change={() => toggleSel('list', i)} />
+          <input type="checkbox" class="flex-shrink-0" onchange={() => toggleSel('list', i)} />
           <span>{String(item)}</span>
         </label>
       {/each}
       {#if copyable}
         <div class="flex justify-end mt-4">
-          <button type="button" class="btn btn-secondary" on:click={copySelected}>Copy selected</button>
+          <button type="button" class="btn btn-secondary" onclick={copySelected}>Copy selected</button>
         </div>
       {/if}
     </div>
@@ -97,7 +98,7 @@
           <div class="space-y-2">
             {#each value as v, j (j)}
               <label class="flex items-start gap-3">
-                <input type="checkbox" class="flex-shrink-0" on:change={() => toggleSel(key, j)} />
+                <input type="checkbox" class="flex-shrink-0" onchange={() => toggleSel(key, j)} />
                 <span>{v}</span>
               </label>
             {/each}
@@ -106,7 +107,7 @@
       {/each}
       {#if copyable}
         <div class="col-span-full flex justify-end mt-4">
-          <button type="button" class="btn btn-secondary" on:click={copySelected}>Copy selected</button>
+          <button type="button" class="btn btn-secondary" onclick={copySelected}>Copy selected</button>
         </div>
       {/if}
     </div>
@@ -117,7 +118,7 @@
       <div class="space-y-1" in:fly={{ x: motion.fromRightX, delay: i * motion.delayStep, duration: motion.durationItemIn }}>
         <div class="font-medium text-neutral-700">{formatKey(key)}</div>
         <div class="pl-3">
-          <svelte:self data={value} />
+          <RecursiveDetailsView data={value} {interactive} {columns} {group} {onChange} {copyable} />
         </div>
       </div>
     {/each}

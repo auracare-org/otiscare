@@ -6,16 +6,16 @@
 	const BINARY_ENDPOINT = pubenv.PUBLIC_BINARY_ENDPOINT;
 	const MULTICLASS_ENDPOINT = pubenv.PUBLIC_MULTICLASS_ENDPOINT;
 
-	let file: File | null = null;
-	let previewUrl: string | null = null;
+	let file: File | null = $state(null);
+	let previewUrl: string | null = $state(null);
 	let loading = $state(false);
 	let error: string | null = $state(null);
 	let res1: any = $state(null);
 	let res2: any = $state(null);
 	let enhance = $state(true);
 	let dragging = $state(false);
-	let lastBase64: string | null = null;
-	let fileInput: HTMLInputElement | null = null;
+	let lastBase64: string | null = $state(null);
+	let fileInput: HTMLInputElement | null = $state(null);
 	const pct = (n: number | undefined | null) =>
 		typeof n === 'number' && isFinite(n) ? `${Math.round(n * 1000) / 10}%` : '—';
 	const ms = (n: number | undefined | null) =>
@@ -171,19 +171,40 @@
 					{#if !file}
 						<div
 							class={`rounded-xl border-2 bg-white/60 p-6 mt-2 ${dragging ? 'border-solid border-primary-600' : 'border-dashed'}`}
-							on:dragover={onDragOver}
-							on:dragleave={onDragLeave}
-							on:drop={onDrop}
+							ondragover={onDragOver}
+							ondragleave={onDragLeave}
+							ondrop={onDrop}
+							role="button"
+							tabindex="0"
+							aria-label="Upload an otoscopic image"
+							onkeydown={(e) => {
+								if (e.key === 'Enter' || e.key === ' ') {
+									e.preventDefault();
+									triggerPick();
+								}
+							}}
 						>
 							<div class="flex flex-col items-center gap-3">
 								<input
 									class="hidden"
 									type="file"
 									accept="image/*"
-									on:change={onFileChange}
+									onchange={onFileChange}
 									bind:this={fileInput}
 								/>
-								<div class="flex flex-col items-center gap-3 text-neutral-600" on:click={triggerPick} role="button" aria-label="Select image">
+								<div
+									class="flex flex-col items-center gap-3 text-neutral-600"
+									onclick={triggerPick}
+									role="button"
+									aria-label="Select image"
+									tabindex="0"
+									onkeydown={(e) => {
+										if (e.key === 'Enter' || e.key === ' ') {
+											e.preventDefault();
+											triggerPick();
+										}
+									}}
+								>
 									<p><strong>Drag & drop</strong> an image here, or <span class="underline">click to select</span></p>
 									<button type="button" class="btn btn-healthcare">Select image</button>
 								</div>
@@ -221,18 +242,18 @@
 								<label class="flex items-center gap-2 text-sm text-neutral-700">
 									<input type="checkbox" bind:checked={enhance} /> Enhancement (Stage 1)
 								</label>
-								<button class="btn btn-secondary" on:click={triggerPick}>Change image</button>
-								<button class="btn btn-healthcare" on:click={classify} disabled={loading}
+								<button class="btn btn-secondary" onclick={triggerPick}>Change image</button>
+								<button class="btn btn-healthcare" onclick={classify} disabled={loading}
 									>{loading ? 'Running…' : 'Run again'}</button
 								>
-								<button class="btn btn-secondary" on:click={downloadSession}>Save session</button>
-								<button class="btn btn-secondary" on:click={clearAll}>Clear</button>
+								<button class="btn btn-secondary" onclick={downloadSession}>Save session</button>
+								<button class="btn btn-secondary" onclick={clearAll}>Clear</button>
 							</div>
 							<input
 								class="hidden"
 								type="file"
 								accept="image/*"
-								on:change={onFileChange}
+								onchange={onFileChange}
 								bind:this={fileInput}
 							/>
 						</div>
@@ -261,9 +282,9 @@
 							{/if}
 						</div>
 						<div class="flex items-center gap-2">
-							<button class="btn btn-secondary" on:click={copySummary}>Copy summary</button>
+							<button class="btn btn-secondary" onclick={copySummary}>Copy summary</button>
 							{#if res2?.prediction?.probabilities}
-								<button class="btn btn-secondary" on:click={downloadCSV}>Export CSV</button>
+								<button class="btn btn-secondary" onclick={downloadCSV}>Export CSV</button>
 							{/if}
 						</div>
 					</div>

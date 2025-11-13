@@ -1,419 +1,486 @@
 {
-"pathway": "Pharmacy First – Acute Otitis Media (AOM) – Clinical Pathway (children and young people 1–17 years)",
-"metadata": {
-  "version": "1.1",
-  "lastUpdated": "2025-10-09",
-  "sources": [
-    "https://clinicalpathways.uk/pharmacy/acute-otitis-media/",
-    "https://www.nice.org.uk/guidance/ng91/resources/visual-summary-pdf-4787282702"
+  "pathway": "Pharmacy First \u2013 Acute Otitis Media (AOM) \u2013 Clinical Pathway (children and young people 1\u201317 years)",
+  "metadata": {
+    "version": "1.2",
+    "lastUpdated": "2025-11-05",
+    "sources": [
+      "https://clinicalpathways.uk/pharmacy/acute-otitis-media/",
+      "https://www.nice.org.uk/guidance/ng91/resources/visual-summary-pdf-4787282702",
+      "https://cks.nice.org.uk/topics/otitis-media-acute/diagnosis/diagnosis/",
+      "https://www.mayoclinic.org/diseases-conditions/ear-infections/symptoms-causes/syc-20351616",
+      "https://www.mayoclinic.org/diseases-conditions/ear-infections/diagnosis-treatment/drc-20351622"
+    ],
+    "niceGuideline": "NG91"
+  },
+  "notes": [
+    "Use shared decision-making and clinician global impression throughout.",
+    "Provide safety\u2011netting information for all patients and share links to evidence on antibiotics (NICE).",
+    "In infants younger than 6 months (especially <3 months) symptoms are often non-specific, coexisting systemic illness is common, and otoscopy can be technically difficult; consider lower threshold for referral.",
+    "Counsel on modifiable risk factors described by Mayo Clinic: reduce exposure to second-hand smoke, encourage breastfeeding where possible, and avoid bottle propping to limit middle-ear inflammation.",
+    "Pharmacy First scope excludes recurrent AOM (3+ episodes/6 months or 4+ episodes/12 months) and pregnant people aged under 16 years; refer these patients."
   ],
-  "niceGuideline": "NG91"
-},
-"notes": [
-"Use shared decision-making and clinician global impression throughout.",
-"Provide safety‑netting information for all patients and share links to evidence on antibiotics (NICE)."
-],
-"decisionTree": {
-"id": "start",
-"title": "Patients presenting with signs and symptoms of acute otitis media",
-"type": "decision",
-"question": "Are there acute onset symptoms suggestive of AOM?",
-"details": {
-"olderChildren": ["Earache"],
-"youngerChildren": [
-"Holding, tugging or rubbing of the ear",
-"Non-specific: fever, crying, poor feeding, restlessness, behavioural changes, cough, rhinorrhoea"
-]
-},
-"yes": {
-"id": "otoscopy_check",
-"type": "decision",
-"title": "Otoscopic examination (gateway point)",
-"question": "Are otoscopic signs of AOM present?",
-"details": [
-"Distinctly red, yellow or cloudy tympanic membrane",
-"OR moderate–severe bulging of tympanic membrane with loss of normal landmarks and air-fluid level behind TM",
-"OR perforation of the tympanic membrane and/or sticky discharge in the external auditory canal"
-],
-"yes": {
-"id": "complication_risk",
-"type": "decision",
-"title": "Consider risk of deterioration or serious illness",
-"question": "Does the patient meet ANY high-risk/serious illness criteria?",
-"details": {
-"systemicOrSeriousIllness": [
-"Systemically very unwell",
-"Signs of a more serious illness"
-],
-"highRiskComorbidity": [
-"Significant heart, lung, renal, liver or neuromuscular disease",
-"Immunosuppression",
-"Cystic fibrosis",
-"Young children born prematurely"
-],
-"suspectedAcuteComplications": [
-"Meningitis (neck stiffness, photophobia, mottled skin)",
-"Mastoiditis (pain/soreness/swelling/tenderness behind ear)",
-"Brain abscess (severe headache, confusion/irritability, muscle weakness)",
-"Sinus thrombosis (headache behind/around eyes)",
-"Facial nerve paralysis"
-]
-},
-"yes": {
-"id": "onward_referral_complications",
-"type": "action",
-"title": "Onward referral",
-"actions": [
-"Consider NEWS2 and escalate to A&E/999 if life-threatening.",
-"Refer to General Practice or other appropriate provider."
-],
-"safetyNet": true
-},
-"no": {
-"id": "perforation_check",
-"type": "decision",
-"title": "Eardrum perforation / otorrhoea",
-"question": "Is there otorrhoea (after perforation) or suspected/confirmed eardrum perforation?",
-"yes": {
-"id": "antibiotic_needed_due_to_perforation",
-"type": "decision",
-"title": "Antibiotic strategy with perforation/otorrhoea",
-"question": "Choose antibiotic strategy",
-"choices": [
-  {
-    "label": "Immediate antibiotic",
-    "next": {
-      "id": "pen_allergy_perforation",
+  "decisionTree": {
+    "id": "risk_screen",
+    "type": "decision",
+    "title": "Consider the risk of deterioration or serious illness",
+    "question": "Does the patient meet ANY high-risk or serious-illness criteria?",
+    "details": {
+      "systemicOrSeriousIllness": [
+        "Systemically very unwell",
+        "Signs of a more serious illness"
+      ],
+    "highRiskComorbidity": [
+      "Significant heart, lung, renal, liver or neuromuscular disease",
+      "Immunosuppression",
+      "Cystic fibrosis",
+      "Young children born prematurely"
+    ],
+    "escalationAdvice": [
+      "Consider calculating NEWS2 score (https://www.mdcalc.com/calc/10083/national-early-warning-score-news-2) before signposting to A&E or calling 999 for life-threatening emergencies."
+    ],
+      "suspectedAcuteComplications": [
+        "Meningitis (neck stiffness, photophobia, mottled skin)",
+        "Mastoiditis (pain/soreness/swelling/tenderness behind ear)",
+        "Brain abscess (severe headache, confusion/irritability, muscle weakness)",
+        "Sinus thrombosis (headache behind/around eyes)",
+        "Facial nerve paralysis"
+      ],
+      "redFlagSymptoms": [
+        "Headache (persistent or severe)",
+        "Nystagmus or blurred vision",
+        "Nausea or vomiting",
+        "Photophobia beyond mild discomfort",
+        "Vertigo",
+        "Fever persisting or escalating",
+        "Labyrinthitis (acute vestibular symptoms)",
+        "Facial paralysis",
+        "Swelling, erythema or marked tenderness behind the ear"
+      ]
+    },
+    "yes": {
+      "id": "onward_referral_complications",
+      "type": "action",
+      "title": "Onward referral",
+  "actions": [
+    "Consider NEWS2 (https://www.mdcalc.com/calc/10083/national-early-warning-score-news-2) and escalate to A&E/999 if life-threatening.",
+        "Refer to General Practice or other appropriate provider."
+      ],
+      "safetyNet": true
+    },
+    "no": {
+      "id": "start",
+      "title": "Patients presenting with signs and symptoms of acute otitis media",
       "type": "decision",
-      "title": "Penicillin allergy?",
-      "question": "Is there a reported penicillin allergy?",
-      "notes": ["Acceptable allergy sources: patient/carer or National Care Record."],
+      "question": "Are there acute onset symptoms suggestive of AOM?",
+      "details": {
+        "olderChildren": [
+          "Earache"
+        ],
+        "youngerChildren": [
+          "Holding, tugging or rubbing of the ear",
+          "Non-specific: fever, crying, poor feeding, restlessness, behavioural changes, cough, rhinorrhoea"
+        ],
+        "riskFactors": [
+          "Age 6 months\u20132 years when Eustachian tubes are immature",
+          "Group childcare attendance with frequent upper respiratory infections",
+          "Bottle feeding while lying down or limited breastfeeding",
+          "Seasonal viral circulation (autumn/winter) or allergy flares",
+          "Exposure to tobacco smoke or high pollution"
+        ],
+        "notes": [
+          "Non-specific symptoms alone do not distinguish AOM from upper respiratory tract infection.",
+          "In babies <6 months (particularly <3 months) the tympanic membrane may not be visible and coexisting systemic illness (for example bronchiolitis or bacteraemia) is more likely."
+        ]
+      },
       "yes": {
-        "id": "macrolide_choice_perforation",
+        "id": "otoscopy_check",
         "type": "decision",
-        "title": "Pregnancy status (only relevant for 16–17 years)",
-        "question": "Is the patient aged 16–17 and pregnant or pregnancy suspected?",
+        "title": "Otoscopic examination (gateway point)",
+        "question": "Are otoscopic signs of AOM present?",
+        "details": [
+          "Distinctly red, yellow or cloudy tympanic membrane",
+          "Moderate\u2013severe bulging of the tympanic membrane with loss of normal landmarks and an air-fluid level behind it (indicates a middle-ear effusion)",
+          "Perforation of the tympanic membrane and/or discharge in the external auditory canal",
+          "Consider whether the appearances could be explained by other causes of middle-ear inflammation or effusion.",
+          "Features not suggestive of AOM include a tympanic membrane that is not bulging (with or without erythema/cloudiness) or an isolated air-fluid level without bulging."
+        ],
         "yes": {
-          "id": "erythromycin_pg_pregnant_16_17",
-          "type": "treatment",
-          "title": "Erythromycin (for penicillin allergy, pregnancy 16–17 years)",
-          "drug": "Erythromycin",
-          "durationDays": 5,
-          "dose": {"age": "≥16 years", "regimen": "500 mg four times daily"},
-          "formulations": [
-            "Tablets 250 mg, 500 mg (including gastro-resistant 250 mg)",
-            "Oral suspension/solution 125 mg/5 mL, 250 mg/5 mL, 500 mg/5 mL (standard and sugar-free) x 100 mL"
-          ],
-          "route": "Oral, with water just before or with food",
-          "legalCategory": "POM",
-          "plus": ["Self-care advice"],
-          "followUp": "Return to pharmacy if no improvement within 3–5 days for reassessment",
-          "safetyNet": true,
-          "referralIfWorsen": true
+          "id": "perforation_check",
+          "type": "decision",
+          "title": "Eardrum perforation / otorrhoea",
+          "question": "Is there otorrhoea (after perforation) or suspected/confirmed eardrum perforation?",
+          "yes": {
+            "id": "antibiotic_needed_due_to_perforation",
+            "type": "decision",
+            "title": "Antibiotic strategy with perforation/otorrhoea",
+            "question": "Choose antibiotic strategy",
+            "choices": [
+              {
+                "label": "Immediate antibiotic",
+                "next": {
+                  "id": "pen_allergy_perforation",
+                  "type": "decision",
+                  "title": "Penicillin allergy?",
+                  "question": "Is there a reported penicillin allergy?",
+                  "notes": [
+                    "Acceptable allergy sources: patient/carer or National Care Record."
+                  ],
+                  "yes": {
+                    "id": "macrolide_choice_perforation",
+                    "type": "decision",
+                    "title": "Pregnancy status (only relevant for 16\u201317 years)",
+                    "question": "Is the patient aged 16\u201317 and pregnant or pregnancy suspected?",
+                    "yes": {
+                      "id": "erythromycin_pg_pregnant_16_17",
+                      "type": "treatment",
+                      "title": "Erythromycin (for penicillin allergy, pregnancy 16\u201317 years)",
+                      "drug": "Erythromycin",
+                      "durationDays": 5,
+                      "dose": {
+                        "age": "\u226516 years",
+                        "regimen": "500 mg four times daily"
+                      },
+                      "formulations": [
+                        "Tablets 250 mg, 500 mg (including gastro-resistant 250 mg)",
+                        "Oral suspension/solution 125 mg/5 mL, 250 mg/5 mL, 500 mg/5 mL (standard and sugar-free) x 100 mL"
+                      ],
+                      "route": "Oral, with water just before or with food",
+                      "legalCategory": "POM",
+                      "plus": [
+                        "Self-care advice"
+                      ],
+                      "followUp": "Return to pharmacy if no improvement within 3\u20135 days for reassessment",
+                      "safetyNet": true,
+                      "referralIfWorsen": true
+                    },
+                    "no": {
+                      "id": "clarithromycin_pg",
+                      "type": "treatment",
+                      "title": "Clarithromycin (penicillin allergy)",
+                      "drug": "Clarithromycin",
+                      "durationDays": 5,
+                      "dose": {
+                        "1\u201311 years (by body weight)": {
+                          "\u22648 kg": "7.5 mg/kg twice daily",
+                          "8\u201311 kg": "62.5 mg twice daily",
+                          "12\u201319 kg": "125 mg twice daily",
+                          "20\u201329 kg": "187.5 mg twice daily",
+                          "30\u201340 kg": "250 mg twice daily"
+                        },
+                        "12\u201317 years": "500 mg twice daily"
+                      },
+                      "formulations": [
+                        "Tablets 250 mg, 500 mg",
+                        "Oral suspension/solution 125 mg/5 mL, 250 mg/5 mL x 70 mL"
+                      ],
+                      "route": "Oral with water (with or without food). Avoid bitter after-taste by drinking juice/water after suspension.",
+                      "legalCategory": "POM",
+                      "plus": [
+                        "Self-care advice"
+                      ],
+                      "followUp": "Return to pharmacy if no improvement within 3\u20135 days for reassessment",
+                      "safetyNet": true,
+                      "referralIfWorsen": true
+                    }
+                  },
+                  "no": {
+                    "id": "amoxicillin_pg_perforation",
+                    "type": "treatment",
+                    "title": "Amoxicillin (no penicillin allergy)",
+                    "drug": "Amoxicillin",
+                    "durationDays": 5,
+                    "dose": {
+                      "1\u20134 years": "250 mg three times daily",
+                      "5\u201317 years": "500 mg three times daily"
+                    },
+                    "formulations": [
+                      "Capsules 250 mg, 500 mg",
+                      "Oral suspension/solution 125 mg/5 mL, 250 mg/5 mL, 500 mg/5 mL (standard and sugar-free) x 100 mL"
+                    ],
+                    "route": "Oral with food or water (capsules swallowed whole)",
+                    "legalCategory": "POM",
+                    "plus": [
+                      "Self-care advice"
+                    ],
+                    "followUp": "Return to pharmacy if no improvement within 3\u20135 days for reassessment",
+                    "safetyNet": true,
+                    "referralIfWorsen": true
+                  }
+                }
+              },
+              {
+                "label": "Back\u2011up antibiotic",
+                "next": {
+                  "id": "backup_antibiotic_perforation",
+                  "type": "action",
+                  "title": "Back\u2011up antibiotic strategy (perforation)",
+                  "actions": [
+                    "Provide a back\u2011up prescription to start if no improvement after 2\u20133 days or if symptoms worsen.",
+                    "Advise on self-care and analgesia; discuss red flags and when to start antibiotics.",
+                    "Arrange follow-up if concerns persist."
+                  ],
+                  "followUp": "Return if no improvement within 3\u20135 days or earlier if worsening.",
+                  "safetyNet": true
+                }
+              }
+            ],
+            "no": {
+              "id": "amoxicillin_pg_perforation",
+              "type": "treatment",
+              "title": "Amoxicillin (no penicillin allergy)",
+              "drug": "Amoxicillin",
+              "durationDays": 5,
+              "dose": {
+                "1\u20134 years": "250 mg three times daily",
+                "5\u201317 years": "500 mg three times daily"
+              },
+              "formulations": [
+                "Capsules 250 mg, 500 mg",
+                "Oral suspension/solution 125 mg/5 mL, 250 mg/5 mL, 500 mg/5 mL (standard and sugar-free) x 100 mL"
+              ],
+              "route": "Oral with food or water (capsules swallowed whole)",
+              "legalCategory": "POM",
+              "plus": [
+                "Self-care advice"
+              ],
+              "followUp": "Return to pharmacy if no improvement within 3\u20135 days for reassessment",
+              "safetyNet": true,
+              "referralIfWorsen": true
+            }
+          },
+          "no": {
+            "id": "bilateral_under2_check",
+            "type": "decision",
+            "title": "Child under 2 with bilateral infection",
+            "question": "Is the child under 2 years AND infection in both ears?",
+            "yes": {
+              "id": "antibiotic_needed_bilateral_u2",
+              "type": "decision",
+              "title": "Antibiotic strategy (under 2 with bilateral)",
+              "question": "Choose antibiotic strategy",
+              "choices": [
+                {
+                  "label": "Immediate antibiotic",
+                  "next": {
+                    "id": "pen_allergy_bilateral",
+                    "type": "decision",
+                    "title": "Penicillin allergy?",
+                    "question": "Penicillin allergy present?",
+                    "yes": {
+                      "id": "clarithromycin_pg_bilateral",
+                      "type": "treatment",
+                      "title": "Clarithromycin (penicillin allergy)",
+                      "inherits": "clarithromycin_pg"
+                    },
+                    "no": {
+                      "id": "amoxicillin_pg_bilateral",
+                      "type": "treatment",
+                      "title": "Amoxicillin (no penicillin allergy)",
+                      "inherits": "amoxicillin_pg_perforation"
+                    }
+                  }
+                },
+                {
+                  "label": "Back\u2011up antibiotic",
+                  "next": {
+                    "id": "backup_antibiotic_bilateral",
+                    "type": "action",
+                    "title": "Back\u2011up antibiotic strategy (bilateral <2 years)",
+                    "actions": [
+                      "Provide a back\u2011up prescription to start if no improvement after 2\u20133 days or if symptoms worsen.",
+                      "Advise on self-care and analgesia; ensure carers understand when to start.",
+                      "Arrange follow-up if concerns persist."
+                    ],
+                    "followUp": "Return if no improvement within 3\u20135 days or earlier if worsening.",
+                    "safetyNet": true
+                  }
+                }
+              ]
+            },
+            "no": {
+              "id": "severity_duration_check",
+              "type": "decision",
+              "title": "Severity and duration",
+              "question": "Does the patient meet ANY: severe symptoms (clinician global impression) OR symptoms >3 days?",
+              "yes": {
+                "id": "moderate_severe_no_perforation",
+                "type": "decision",
+                "title": "Moderate\u2013severe symptoms without perforation",
+                "question": "Consider topical analgesic ear drops and/or oral antibiotics?",
+                "actions": [
+                  "Consider phenazone 40 mg/g with lidocaine 10 mg/g ear drops (Otigo) up to 7 days, plus self-care, subject to PGD inclusion/exclusion.",
+                  "If antibiotics indicated (shared decision-making) choose strategy: immediate vs back-up."
+                ],
+                "choices": [
+                  {
+                    "label": "Immediate antibiotic",
+                    "next": {
+                      "id": "allergy_branch_no_perforation",
+                      "type": "decision",
+                      "title": "Penicillin allergy?",
+                      "question": "Is there a reported penicillin allergy?",
+                      "yes": {
+                        "id": "clarithromycin_pg_no_perforation",
+                        "type": "treatment",
+                        "title": "Clarithromycin (penicillin allergy)",
+                        "inherits": "clarithromycin_pg"
+                      },
+                      "no": {
+                        "id": "amoxicillin_pg_no_perforation",
+                        "type": "treatment",
+                        "title": "Amoxicillin (no penicillin allergy)",
+                        "inherits": "amoxicillin_pg_perforation"
+                      }
+                    }
+                  },
+                  {
+                    "label": "Back\u2011up antibiotic",
+                    "next": {
+                      "id": "backup_antibiotic_strategy",
+                      "type": "action",
+                      "title": "Back\u2011up antibiotic strategy (delayed)",
+                      "actions": [
+                        "Provide a back\u2011up prescription to start if symptoms do not improve within 2\u20133 days or worsen at any time.",
+                        "Advise on self-care and analgesia.",
+                        "Explain when and how to use the prescription; return if concerns."
+                      ],
+                      "followUp": "Return if no improvement within 3\u20135 days for reassessment; use prescription if agreed triggers occur.",
+                      "safetyNet": true
+                    }
+                  }
+                ],
+                "additional": {
+                  "otigo_details": {
+                    "product": "Otigo (phenazone 40 mg/g + lidocaine hydrochloride 10 mg/g) ear drops",
+                    "indication": "Local symptomatic relief of pain from AOM in children \u22651 year and <18 years with moderate\u2013severe symptoms and pain not controlled with regular paracetamol/ibuprofen",
+                    "dose": "Instil 4 drops up to three times daily into the affected ear(s)",
+                    "duration": "Until symptoms resolve or up to 7 days",
+                    "route": "Topical into external auditory canal; warm bottle between hands before use",
+                    "legalCategory": "POM",
+                    "advice": [
+                      "Use PIL and Medicines for Children guidance for administration.",
+                      "Consider only when PGD inclusion criteria are met and exclusions ruled out."
+                    ]
+                  }
+                },
+                "followUp": "Return to pharmacy if no improvement within 3\u20135 days for reassessment",
+                "safetyNet": true,
+                "referralIfWorsen": true
+              },
+              "no": {
+                "id": "mild_management",
+                "type": "treatment",
+                "title": "Mild symptoms",
+                "actions": [
+                  "Offer self-care and pain relief (paracetamol/ibuprofen with age/weight-appropriate dosing).",
+                  "Antibiotics are not routinely indicated; consider no prescription or a delayed prescription based on shared decision-making.",
+                  "Review Mayo Clinic home care: warm compresses for short periods, keep the child upright when feeding, ensure rest/hydration, and keep the ear dry (no swimming) until symptoms resolve."
+                ],
+                "advice": [
+                  "Most AOM lasts ~1 week; >80% recover without antibiotics within 2\u20133 days from presentation."
+                ],
+                "followUp": "Return to pharmacy if no improvement within 3\u20135 days for reassessment",
+                "safetyNet": true
+              }
+            }
+          }
         },
         "no": {
-          "id": "clarithromycin_pg",
-          "type": "treatment",
-          "title": "Clarithromycin (penicillin allergy)",
-          "drug": "Clarithromycin",
-          "durationDays": 5,
-          "dose": {
-            "1–11 years (by body weight)": {
-              "≤8 kg": "7.5 mg/kg twice daily",
-              "8–11 kg": "62.5 mg twice daily",
-              "12–19 kg": "125 mg twice daily",
-              "20–29 kg": "187.5 mg twice daily",
-              "30–40 kg": "250 mg twice daily"
-            },
-            "12–17 years": "500 mg twice daily"
-          },
-          "formulations": [
-            "Tablets 250 mg, 500 mg",
-            "Oral suspension/solution 125 mg/5 mL, 250 mg/5 mL x 70 mL"
-          ],
-          "route": "Oral with water (with or without food). Avoid bitter after-taste by drinking juice/water after suspension.",
-          "legalCategory": "POM",
-          "plus": ["Self-care advice"],
-          "followUp": "Return to pharmacy if no improvement within 3–5 days for reassessment",
-          "safetyNet": true,
-          "referralIfWorsen": true
+          "id": "aom_less_likely",
+          "type": "action",
+          "title": "Acute otitis media less likely",
+          "actions": [
+            "Consider alternative diagnosis and proceed appropriately.",
+            "Onward referral to GP or other provider if needed."
+          ]
         }
       },
       "no": {
-        "id": "amoxicillin_pg_perforation",
-        "type": "treatment",
-        "title": "Amoxicillin (no penicillin allergy)",
-        "drug": "Amoxicillin",
-        "durationDays": 5,
-        "dose": {"1–4 years": "250 mg three times daily", "5–17 years": "500 mg three times daily"},
-        "formulations": [
-          "Capsules 250 mg, 500 mg",
-          "Oral suspension/solution 125 mg/5 mL, 250 mg/5 mL, 500 mg/5 mL (standard and sugar-free) x 100 mL"
-        ],
-        "route": "Oral with food or water (capsules swallowed whole)",
-        "legalCategory": "POM",
-        "plus": ["Self-care advice"],
-        "followUp": "Return to pharmacy if no improvement within 3–5 days for reassessment",
-        "safetyNet": true,
-        "referralIfWorsen": true
+        "id": "aom_less_likely2",
+        "type": "action",
+        "title": "Acute otitis media less likely",
+        "actions": [
+          "Consider alternative diagnosis and proceed appropriately.",
+          "Onward referral to GP or other provider if needed."
+        ]
       }
     }
   },
-  {
-    "label": "Back‑up antibiotic",
-    "next": {
-      "id": "backup_antibiotic_perforation",
-      "type": "action",
-      "title": "Back‑up antibiotic strategy (perforation)",
-      "actions": [
-        "Provide a back‑up prescription to start if no improvement after 2–3 days or if symptoms worsen.",
-        "Advise on self-care and analgesia; discuss red flags and when to start antibiotics.",
-        "Arrange follow-up if concerns persist."
-      ],
-      "followUp": "Return if no improvement within 3–5 days or earlier if worsening.",
-      "safetyNet": true
-    }
-  }
-],
-"no": {
-"id": "amoxicillin_pg_perforation",
-"type": "treatment",
-"title": "Amoxicillin (no penicillin allergy)",
-"drug": "Amoxicillin",
-"durationDays": 5,
-"dose": {
-"1–4 years": "250 mg three times daily",
-"5–17 years": "500 mg three times daily"
-},
-"formulations": [
-"Capsules 250 mg, 500 mg",
-"Oral suspension/solution 125 mg/5 mL, 250 mg/5 mL, 500 mg/5 mL (standard and sugar-free) x 100 mL"
-],
-"route": "Oral with food or water (capsules swallowed whole)",
-"legalCategory": "POM",
-"plus": ["Self-care advice"],
-"followUp": "Return to pharmacy if no improvement within 3–5 days for reassessment",
-"safetyNet": true,
-"referralIfWorsen": true
-}
-},
-"no": {
-"id": "bilateral_under2_check",
-"type": "decision",
-"title": "Child under 2 with bilateral infection",
-"question": "Is the child under 2 years AND infection in both ears?",
-"yes": {
-"id": "antibiotic_needed_bilateral_u2",
-"type": "decision",
-"title": "Antibiotic strategy (under 2 with bilateral)",
-"question": "Choose antibiotic strategy",
-"choices": [
-  {
-    "label": "Immediate antibiotic",
-    "next": {
-      "id": "pen_allergy_bilateral",
-      "type": "decision",
-      "title": "Penicillin allergy?",
-      "question": "Penicillin allergy present?",
-      "yes": { "id": "clarithromycin_pg_bilateral", "type": "treatment", "title": "Clarithromycin (penicillin allergy)", "inherits": "clarithromycin_pg" },
-      "no": { "id": "amoxicillin_pg_bilateral", "type": "treatment", "title": "Amoxicillin (no penicillin allergy)", "inherits": "amoxicillin_pg_perforation" }
-    }
-  },
-  {
-    "label": "Back‑up antibiotic",
-    "next": {
-      "id": "backup_antibiotic_bilateral",
-      "type": "action",
-      "title": "Back‑up antibiotic strategy (bilateral <2 years)",
-      "actions": [
-        "Provide a back‑up prescription to start if no improvement after 2–3 days or if symptoms worsen.",
-        "Advise on self-care and analgesia; ensure carers understand when to start.",
-        "Arrange follow-up if concerns persist."
-      ],
-      "followUp": "Return if no improvement within 3–5 days or earlier if worsening.",
-      "safetyNet": true
-    }
-  }
-]
-},
-"no": {
-"id": "severity_duration_check",
-"type": "decision",
-"title": "Severity and duration",
-"question": "Does the patient meet ANY: severe symptoms (clinician global impression) OR symptoms >3 days?",
-"yes": {
-"id": "moderate_severe_no_perforation",
-"type": "decision",
-"title": "Moderate–severe symptoms without perforation",
-"question": "Consider topical analgesic ear drops and/or oral antibiotics?",
-"actions": [
-"Consider phenazone 40 mg/g with lidocaine 10 mg/g ear drops (Otigo) up to 7 days, plus self-care, subject to PGD inclusion/exclusion.",
-"If antibiotics indicated (shared decision-making) choose strategy: immediate vs back-up."
-],
-"choices": [
-  {
-    "label": "Immediate antibiotic",
-    "next": {
-      "id": "allergy_branch_no_perforation",
-      "type": "decision",
-      "title": "Penicillin allergy?",
-      "question": "Is there a reported penicillin allergy?",
-      "yes": {
-        "id": "clarithromycin_pg_no_perforation",
-        "type": "treatment",
-        "title": "Clarithromycin (penicillin allergy)",
-        "inherits": "clarithromycin_pg"
+  "pgds": {
+    "Otigo": {
+      "name": "Otigo (phenazone 40 mg/g + lidocaine hydrochloride 10 mg/g) ear drops",
+      "indication": "Local symptomatic relief of pain from AOM in children \u22651 year and <18 years with moderate\u2013severe symptoms where pain not controlled with regular paracetamol/ibuprofen",
+      "dose": "4 drops up to three times daily into affected ear(s)",
+      "duration": "Until symptoms resolve or up to 7 days",
+      "route": "Topical into external auditory canal; warm bottle before use",
+      "legalCategory": "POM"
+    },
+    "Amoxicillin": {
+      "name": "Amoxicillin",
+      "indication": "AOM in children \u22651 year and <18 years",
+      "dose": {
+        "1\u20134 years": "250 mg three times daily",
+        "5\u201317 years": "500 mg three times daily"
       },
-      "no": {
-        "id": "amoxicillin_pg_no_perforation",
-        "type": "treatment",
-        "title": "Amoxicillin (no penicillin allergy)",
-        "inherits": "amoxicillin_pg_perforation"
-      }
+      "duration": "5 days; start immediately and complete course",
+      "route": "Oral with food or water; capsules swallowed whole",
+      "legalCategory": "POM",
+      "notes": [
+        "Use when no penicillin allergy.",
+        "Indicated if: under 2 years with bilateral AOM, symptoms >3 days, severe symptoms, or AOM with otorrhoea."
+      ]
+    },
+    "Clarithromycin": {
+      "name": "Clarithromycin",
+      "indication": "AOM where amoxicillin not appropriate due to hypersensitivity",
+      "dose": {
+        "1\u201311 years (by weight)": {
+          "\u22648 kg": "7.5 mg/kg twice daily",
+          "8\u201311 kg": "62.5 mg twice daily",
+          "12\u201319 kg": "125 mg twice daily",
+          "20\u201329 kg": "187.5 mg twice daily",
+          "30\u201340 kg": "250 mg twice daily"
+        },
+        "12\u201317 years": "500 mg twice daily"
+      },
+      "duration": "5 days; start immediately and complete course",
+      "route": "Oral with water; with or without food. For suspension, drink juice/water after to avoid bitter after-taste.",
+      "legalCategory": "POM"
+    },
+    "Erythromycin": {
+      "name": "Erythromycin",
+      "indication": "AOM in young people aged 16\u201317 who are pregnant or pregnancy suspected AND penicillin allergy",
+      "dose": {
+        "\u226516 years": "500 mg four times daily"
+      },
+      "duration": "5 days; start immediately and complete course",
+      "route": "Oral with water just before or with food",
+      "legalCategory": "POM"
     }
   },
-  {
-    "label": "Back‑up antibiotic",
-    "next": {
-      "id": "backup_antibiotic_strategy",
-      "type": "action",
-      "title": "Back‑up antibiotic strategy (delayed)",
-      "actions": [
-        "Provide a back‑up prescription to start if symptoms do not improve within 2–3 days or worsen at any time.",
-        "Advise on self-care and analgesia.",
-        "Explain when and how to use the prescription; return if concerns."
-      ],
-      "followUp": "Return if no improvement within 3–5 days for reassessment; use prescription if agreed triggers occur.",
-      "safetyNet": true
-    }
+  "selfCareAndSafetyNetting": {
+    "selfCare": [
+      "Analgesia: paracetamol or ibuprofen as per age/weight dosing schedules.",
+      "Adequate fluids, rest, and comfort measures.",
+      "Warm compress (or gentle heat pack) over the affected ear for short intervals for comfort (ensure not hot enough to burn).",
+      "Allow older children to rest with the head elevated or on the affected side down so the ear can drain; keep infants upright when feeding.",
+      "Limit dummy/pacifier use, avoid second-hand smoke, and maintain nasal hygiene to support Eustachian tube drainage."
+    ],
+    "education": [
+      "AOM commonly lasts ~1 week.",
+      "Over 80% recover without antibiotics within 2\u20133 days from presentation.",
+      "Share NICE information on antibiotics and when they may (or may not) be needed.",
+      "Discuss Mayo Clinic warnings: recurrent infections can affect hearing, speech or balance; untreated infections may spread to mastoid bone or inner ear."
+    ],
+    "safetyNet": [
+      "Seek medical help urgently if symptoms worsen rapidly or significantly, the child becomes very unwell, or no improvement after 2\u20133 days of antibiotics.",
+      "Return to community pharmacy for reassessment if no improvement within 3\u20135 days.",
+      "Escalate sooner if fever exceeds 39 \u00b0C (102.2 \u00b0F), drainage continues beyond 24 hours, the child has a stiff neck, severe headache, persistent vomiting, new hearing loss or facial weakness (per Mayo Clinic guidance)."
+    ],
+    "referral": [
+      "General Practice",
+      "Other provider as appropriate",
+      "A&E/999 for life-threatening emergencies (consider NEWS2)."
+    ]
   }
-],
-"additional": {
-"otigo_details": {
-"product": "Otigo (phenazone 40 mg/g + lidocaine hydrochloride 10 mg/g) ear drops",
-"indication": "Local symptomatic relief of pain from AOM in children ≥1 year and <18 years with moderate–severe symptoms and pain not controlled with regular paracetamol/ibuprofen",
-"dose": "Instil 4 drops up to three times daily into the affected ear(s)",
-"duration": "Until symptoms resolve or up to 7 days",
-"route": "Topical into external auditory canal; warm bottle between hands before use",
-"legalCategory": "POM",
-"advice": [
-"Use PIL and Medicines for Children guidance for administration.",
-"Consider only when PGD inclusion criteria are met and exclusions ruled out."
-]
-}
-},
-"followUp": "Return to pharmacy if no improvement within 3–5 days for reassessment",
-"safetyNet": true,
-"referralIfWorsen": true
-},
-"no": {
-"id": "mild_management",
-"type": "treatment",
-"title": "Mild symptoms",
-"actions": [
-"Offer self-care and pain relief (paracetamol/ibuprofen with age/weight-appropriate dosing).",
-"Antibiotics are not routinely indicated; consider no prescription or a delayed prescription based on shared decision-making."
-],
-"advice": [
-"Most AOM lasts ~1 week; >80% recover without antibiotics within 2–3 days from presentation."
-],
-"followUp": "Return to pharmacy if no improvement within 3–5 days for reassessment",
-"safetyNet": true
-}
-}
-}
-}
-},
-"no": {
-"id": "aom_less_likely",
-"type": "action",
-"title": "Acute otitis media less likely",
-"actions": [
-"Consider alternative diagnosis and proceed appropriately.",
-"Onward referral to GP or other provider if needed."
-]
-}
-},
-"no": {
-"id": "aom_less_likely2",
-"type": "action",
-"title": "Acute otitis media less likely",
-"actions": [
-"Consider alternative diagnosis and proceed appropriately.",
-"Onward referral to GP or other provider if needed."
-]
-}
-},
-"pgds": {
-"Otigo": {
-"name": "Otigo (phenazone 40 mg/g + lidocaine hydrochloride 10 mg/g) ear drops",
-"indication": "Local symptomatic relief of pain from AOM in children ≥1 year and <18 years with moderate–severe symptoms where pain not controlled with regular paracetamol/ibuprofen",
-"dose": "4 drops up to three times daily into affected ear(s)",
-"duration": "Until symptoms resolve or up to 7 days",
-"route": "Topical into external auditory canal; warm bottle before use",
-"legalCategory": "POM"
-},
-"Amoxicillin": {
-"name": "Amoxicillin",
-"indication": "AOM in children ≥1 year and <18 years",
-"dose": {
-"1–4 years": "250 mg three times daily",
-"5–17 years": "500 mg three times daily"
-},
-"duration": "5 days; start immediately and complete course",
-"route": "Oral with food or water; capsules swallowed whole",
-"legalCategory": "POM",
-"notes": [
-"Use when no penicillin allergy.",
-"Indicated if: under 2 years with bilateral AOM, symptoms >3 days, severe symptoms, or AOM with otorrhoea."
-]
-},
-"Clarithromycin": {
-"name": "Clarithromycin",
-"indication": "AOM where amoxicillin not appropriate due to hypersensitivity",
-"dose": {
-"1–11 years (by weight)": {
-"≤8 kg": "7.5 mg/kg twice daily",
-"8–11 kg": "62.5 mg twice daily",
-"12–19 kg": "125 mg twice daily",
-"20–29 kg": "187.5 mg twice daily",
-"30–40 kg": "250 mg twice daily"
-},
-"12–17 years": "500 mg twice daily"
-},
-"duration": "5 days; start immediately and complete course",
-"route": "Oral with water; with or without food. For suspension, drink juice/water after to avoid bitter after-taste.",
-"legalCategory": "POM"
-},
-"Erythromycin": {
-"name": "Erythromycin",
-"indication": "AOM in young people aged 16–17 who are pregnant or pregnancy suspected AND penicillin allergy",
-"dose": {
-"≥16 years": "500 mg four times daily"
-},
-"duration": "5 days; start immediately and complete course",
-"route": "Oral with water just before or with food",
-"legalCategory": "POM"
-}
-},
-"selfCareAndSafetyNetting": {
-"selfCare": [
-"Analgesia: paracetamol or ibuprofen as per age/weight dosing schedules.",
-"Adequate fluids, rest, and comfort measures."
-],
-"education": [
-"AOM commonly lasts ~1 week.",
-"Over 80% recover without antibiotics within 2–3 days from presentation.",
-"Share NICE information on antibiotics and when they may (or may not) be needed."
-],
-"safetyNet": [
-"Seek medical help urgently if symptoms worsen rapidly or significantly, the child becomes very unwell, or no improvement after 2–3 days of antibiotics.",
-"Return to community pharmacy for reassessment if no improvement within 3–5 days."
-],
-"referral": [
-"General Practice",
-"Other provider as appropriate",
-"A&E/999 for life-threatening emergencies (consider NEWS2)."
-]
-}
 }

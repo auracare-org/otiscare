@@ -7,12 +7,12 @@
     onResult: (result: { label: string; confidence: number; diagnosis?: string }) => void;
   }>();
 
-  let file: File | null = null;
-  let previewUrl: string | null = null;
+  let file: File | null = $state(null);
+  let previewUrl: string | null = $state(null);
   let loading = $state(false);
   let error: string | null = $state(null);
   let dragging = $state(false);
-  let fileInput: HTMLInputElement | null = null;
+  let fileInput: HTMLInputElement | null = $state(null);
   let result: { label: string; confidence: number } | null = $state(null);
 
   function onFileChange(e: Event) {
@@ -129,7 +129,7 @@
     class="hidden"
     type="file"
     accept="image/*"
-    on:change={onFileChange}
+    onchange={onFileChange}
     bind:this={fileInput}
   />
 
@@ -156,7 +156,7 @@
           <div class="flex justify-center">
             <img
               src={previewUrl}
-              alt="Classified otoscopic image"
+              alt="Classified otoscopic view"
               class="max-h-48 rounded-lg border-2 {result.label === 'pathological' ? 'border-red-300' : 'border-green-300'} shadow-sm"
             />
           </div>
@@ -190,7 +190,7 @@
 
         <!-- Classify Another Button -->
         <div class="flex justify-center pt-2">
-          <button type="button" class="btn btn-primary" on:click={reset}>
+          <button type="button" class="btn btn-primary" onclick={reset}>
             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
             </svg>
@@ -203,20 +203,29 @@
     <!-- Upload State - Initial -->
     <div
       class={`rounded-xl border-2 bg-white/60 p-8 transition-colors ${dragging ? 'border-solid border-primary-600 bg-primary-50/30' : 'border-dashed border-neutral-300'}`}
-      on:dragover={onDragOver}
-      on:dragleave={onDragLeave}
-      on:drop={onDrop}
+      ondragover={onDragOver}
+      ondragleave={onDragLeave}
+      ondrop={onDrop}
       role="button"
       tabindex="0"
-      on:click={triggerPick}
-      on:keydown={(e) => e.key === 'Enter' && triggerPick()}
+      onclick={triggerPick}
+      onkeydown={(e) => e.key === 'Enter' && triggerPick()}
     >
       <div class="flex flex-col items-center gap-3 text-center">
         <svg class="w-12 h-12 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
         </svg>
         <p class="text-neutral-600"><strong>Drag & drop</strong> an image here, or <span class="text-primary-600 underline">click to select</span></p>
-        <button type="button" class="btn btn-primary mt-2" on:click|stopPropagation={triggerPick}>Select Image</button>
+        <button
+          type="button"
+          class="btn btn-primary mt-2"
+          onclick={(event) => {
+            event.stopPropagation();
+            triggerPick();
+          }}
+        >
+          Select Image
+        </button>
       </div>
     </div>
   {/if}
