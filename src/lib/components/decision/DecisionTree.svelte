@@ -191,7 +191,7 @@ const summary = $state<SummaryState>({
       {/if}
     </div>
 
-    <div class="md:grid md:grid-cols-[1fr_280px] md:gap-6 items-start">
+    <div class="grid grid-cols-1 gap-4 md:grid-cols-[1fr_280px] md:gap-6 items-start">
       <div>
         {#if summary.strategy}
           <div class="mb-3">
