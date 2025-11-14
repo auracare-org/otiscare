@@ -111,7 +111,7 @@
       <p class="text-sm text-neutral-700">
         Contact the clinical safety team if you require printable briefing sheets, PGD extracts, or want to contribute new evidence for upcoming releases.
       </p>
-      <a class="btn btn-secondary w-fit" href="mailto:clinical@auracare.example">Email Clinical Safety</a>
+      <a class="btn btn-secondary w-fit" href="mailto:clinical@auracare.org.uk">Email Clinical Safety</a>
     </section>
   </div>
 </section>
