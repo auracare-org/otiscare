@@ -36,6 +36,11 @@
 				>DocLens</a
 			>
 			<a
+				href="/news2"
+				class={`rounded px-3 py-1 ${isActive('/news2') ? 'bg-primary-600 text-white' : 'hover:bg-neutral-100'}`}
+				>NEWS2</a
+			>
+			<a
 				href="/sources"
 				class={`rounded px-3 py-1 text-neutral-500 ${isActive('/sources') ? 'bg-primary-600 text-white' : 'hover:text-neutral-700'}`}
 				>Sources</a
