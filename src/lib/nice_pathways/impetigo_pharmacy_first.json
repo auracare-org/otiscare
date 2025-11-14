@@ -1,0 +1,266 @@
+{
+  "pathway": "Pharmacy First - Impetigo (non-bullous, ≥1 year)",
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-02-15",
+    "sources": [
+      "https://clinicalpathways.uk/pharmacy/impetigo/",
+      "https://cks.nice.org.uk/topics/impetigo/",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-3a.-Impetigo-hydrogen-peroxide-cream-protocol-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-3b.-Impetigo-fusidic-acid-cream-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-3c.-Impetigo-flucloxacillin-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-3d.-Impetigo-clarithromycin-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-3e.-Impetigo-erythromycin-patient-group-direction-Pharmacy-First.pdf"
+    ],
+    "niceGuideline": "NICE CKS Impetigo"
+  },
+  "notes": [
+    "Scope: non-bullous impetigo in adults and children ≥1 year. Exclude bullous disease, recurrent impetigo (≥2 episodes in the same year), widespread systemic illness, and pregnant people <16 years.",
+    "Record lesion count/location, crusting/oozing stage, systemic features, previous topical/oral therapy, allergies, pregnancy status, and safeguarding concerns in the Pharmacy First consultation record.",
+    "Advise strict hygiene (avoid sharing towels, bedding, razors; keep nails short; wash hands frequently; gently remove crusts with warm soapy water before applying topical therapy).",
+    "Inform patients that impetigo is highly contagious until lesions crust/heal; exclude from nurseries/schools until lesions are dry or 48 hours after antibiotics are started.",
+    "Share the British Association of Dermatologists impetigo leaflet and reinforce when to seek urgent care (rapid spread, fever, lymphangitis, orbital involvement)."
+  ],
+  "decisionTree": {
+    "id": "complication_screen",
+    "type": "decision",
+    "title": "Consider the risk of deterioration or serious illness",
+    "question": "Does the patient have complications or high-risk features?",
+    "details": {
+      "systemicOrHighRisk": [
+        "Systemically very unwell (fever, rigors, tachycardia, hypotension, NEWS2 trigger).",
+        "Signs of cellulitis, lymphangitis, abscess, periorbital involvement, or rapidly spreading erythema.",
+        "Evidence of bullous impetigo, eczema herpeticum, varicella zoster, or other differential diagnoses needing medical review.",
+        "Recurrent impetigo in the same year, neonates, immunosuppressed individuals, or suspected sepsis."
+      ],
+      "safeguarding": [
+        "Suspected neglect/poor hygiene unable to self-manage.",
+        "Failure to respond to prior oral antibiotics.",
+        "Consider pregnancy (particularly <16 years) outside Pharmacy First scope."
+      ]
+    },
+    "yes": {
+      "id": "urgent_referral",
+      "type": "action",
+      "title": "Onward referral required",
+      "actions": [
+        "Consider NEWS2 and arrange urgent GP, community pediatrics, or A&E/999 assessment as appropriate.",
+        "Do not supply under PGD—provide written safety-netting and document escalation.",
+        "Advise isolation of affected areas and reinforce infection control while awaiting assessment."
+      ],
+      "safetyNet": true
+    },
+    "no": {
+      "id": "typical_features",
+      "type": "decision",
+      "title": "Confirm clinical diagnosis",
+      "question": "Does the presentation follow typical impetigo clinical features?",
+      "details": {
+        "typicalFeatures": [
+          "Vesicles that rupture to form honey-coloured crusts on an erythematous base.",
+          "Lesions clustered on exposed areas (face, perioral region, limbs) with minimal surrounding cellulitis.",
+          "Patient systemically well or only mild malaise; no deep tissue involvement.",
+          "History of minor trauma/eczema causing portal of entry."
+        ],
+        "considerAlternatives": [
+          "Herpes simplex, eczema herpeticum, varicella, folliculitis, scabies, contact dermatitis, insect bites."
+        ]
+      },
+      "yes": {
+        "id": "lesion_gate",
+        "type": "decision",
+        "title": "Gateway point",
+        "question": "Does the patient have ≤3 lesions/clusters present (localised)?",
+        "details": {
+          "countGuidance": [
+            "Localised disease usually means three or fewer discrete lesions or closely grouped clusters.",
+            "Document lesion sites (perioral, limbs, trunk) and whether eyes/nose are affected.",
+            "If lesions are near the eyes or lips consider suitability of hydrogen peroxide vs fusidic acid."
+          ]
+        },
+        "yes": {
+          "id": "hydrogen_first_line",
+          "type": "decision",
+          "title": "Localised non-bullous impetigo",
+          "question": "Is hydrogen peroxide 1% cream suitable and available?",
+          "details": {
+            "useHydrogenPeroxide": [
+              "First-line for localised lesions when skin is intact apart from superficial crusts.",
+              "Apply thinly to affected areas after gently soaking off crusts, twice daily for 5 days.",
+              "Continue good hygiene measures to reduce transmission."
+            ],
+            "notAppropriate": [
+              "Lesions close to the eyes or mucosa where hydrogen peroxide may irritate.",
+              "Previous 5-day hydrogen peroxide course failed and impetigo remains localised.",
+              "Product out of stock/unavailable."
+            ]
+          },
+          "yes": {
+            "id": "hydrogen_peroxide_treatment",
+            "type": "treatment",
+            "title": "Hydrogen peroxide 1% cream (first line)",
+            "drug": "Hydrogen peroxide 1% cream",
+            "durationDays": 5,
+            "dose": "Apply thinly to affected skin twice daily for 5 days; cleanse crusts with warm soapy water before application.",
+            "formulations": [
+              "Hydrogen peroxide 1% (10 mg/1 g) cream such as Crystacide®"
+            ],
+            "route": "Topical application to intact surrounding skin.",
+            "legalCategory": "GSL supplied under Pharmacy First protocol",
+            "plus": [
+              "Advise on strict hand hygiene, no sharing of towels/bedding, regular laundering at 60 °C.",
+              "Do not cover lesions with occlusive dressings; keep nails short to prevent excoriation."
+            ],
+            "followUp": "If lesions worsen, spread rapidly, or fail to improve after 5 days of treatment, reassess and consider second-line therapy or referral.",
+            "safetyNet": true
+          },
+          "no": {
+            "id": "fusidic_second_line",
+            "type": "treatment",
+            "title": "Fusidic acid 2% cream (second line topical)",
+            "drug": "Fusidic acid 2% cream",
+            "durationDays": 5,
+            "dose": "Apply three to four times daily to affected areas for 5 days (after gently removing crusts).",
+            "formulations": [
+              "Fusidic acid 2% cream 15 g (tubes)",
+              "Fusidic acid 2% ointment (when cream unavailable)"
+            ],
+            "route": "Topical",
+            "legalCategory": "POM (supplied under PGD)",
+            "plus": [
+              "Reserve for cases where hydrogen peroxide is unsuitable (e.g. peri-ocular involvement) or has failed despite adherence.",
+              "Continue infection prevention measures and alert patient about potential local irritation."
+            ],
+            "followUp": "If no improvement after 5 days or impetigo spreads beyond localised area, stop treatment and arrange medical review.",
+            "safetyNet": true,
+            "referralIfWorsen": true
+          }
+        },
+        "no": {
+          "id": "widespread_branch",
+          "type": "decision",
+          "title": "Widespread non-bullous impetigo",
+          "question": "Does the patient have ≥4 lesions/clusters requiring oral therapy?",
+          "details": {
+            "oralTherapy": [
+              "Indicated when impetigo is spreading, involves multiple body sites, or the patient is in a setting with high transmission risk.",
+              "Document penicillin allergy status via National Care Record, SCR, or reliable history.",
+              "Ensure adherence support (dosing three to four times daily) and reinforce self-care."
+            ]
+          },
+          "yes": {
+            "id": "penicillin_allergy_check",
+            "type": "decision",
+            "title": "Penicillin allergy?",
+            "question": "Is there a confirmed penicillin allergy?",
+            "yes": {
+              "id": "pregnancy_check",
+              "type": "decision",
+              "title": "Pregnancy status for macrolide choice",
+              "question": "Is the adult patient pregnant (or pregnancy suspected)?",
+              "yes": {
+                "id": "erythromycin_pregnancy",
+                "type": "treatment",
+                "title": "Erythromycin (penicillin allergy + pregnancy)",
+                "drug": "Erythromycin",
+                "durationDays": 5,
+                "dose": {
+                  "Adults": "500 mg four times daily (or 1 g twice daily modified-release) for 5 days."
+                },
+                "formulations": [
+                  "Tablets/capsules 250 mg, 500 mg",
+                  "Oral suspension 125 mg/5 mL, 250 mg/5 mL"
+                ],
+                "route": "Oral",
+                "legalCategory": "POM (PGD)",
+                "plus": [
+                  "Take with meals to improve tolerance; common adverse effects include nausea and abdominal cramps.",
+                  "Advise patients to complete the 5-day course and report cholestatic jaundice symptoms."
+                ],
+                "followUp": "Contact GP if no improvement within 2–3 days or sooner if systemic symptoms develop.",
+                "safetyNet": true,
+                "referralIfWorsen": true
+              },
+              "no": {
+                "id": "clarithromycin_branch",
+                "type": "treatment",
+                "title": "Clarithromycin (penicillin allergy)",
+                "drug": "Clarithromycin",
+                "durationDays": 5,
+                "dose": {
+                  "Children 1–11 years by weight": {
+                    "≤8 kg": "7.5 mg/kg twice daily",
+                    "8–11 kg": "62.5 mg twice daily",
+                    "12–19 kg": "125 mg twice daily",
+                    "20–29 kg": "187.5 mg twice daily",
+                    "30–40 kg": "250 mg twice daily"
+                  },
+                  "≥12 years and adults": "250 mg twice daily"
+                },
+                "formulations": [
+                  "Tablets 250 mg, 500 mg",
+                  "Suspension 125 mg/5 mL, 250 mg/5 mL"
+                ],
+                "route": "Oral (with or without food; take with water).",
+                "legalCategory": "POM (PGD)",
+                "plus": [
+                  "Avoid with potent CYP3A4 inhibitors; check for QT prolongation risk and statin use.",
+                  "Warn about potential taste disturbance or GI upset; encourage adherence for full 5 days."
+                ],
+                "followUp": "Reassess if lesions worsen, fail to improve within 2–3 days, or patient develops systemic features.",
+                "safetyNet": true,
+                "referralIfWorsen": true
+              }
+            },
+            "no": {
+              "id": "flucloxacillin_branch",
+              "type": "treatment",
+              "title": "Flucloxacillin (no penicillin allergy)",
+              "drug": "Flucloxacillin",
+              "durationDays": 5,
+              "dose": {
+                "Children 1–11 years": "12.5 mg/kg (max 500 mg) four times daily",
+                "≥12 years and adults": "500 mg four times daily"
+              },
+              "formulations": [
+                "Capsules 250 mg, 500 mg",
+                "Oral solution 125 mg/5 mL, 250 mg/5 mL"
+              ],
+              "route": "Oral (preferably on an empty stomach).",
+              "legalCategory": "POM (PGD)",
+              "plus": [
+                "Explain importance of evenly spaced doses and completing the course even if lesions improve quickly.",
+                "Advise monitoring for hepatic dysfunction or rash; stop and seek advice if cholestatic jaundice occurs."
+              ],
+              "followUp": "Review if no improvement within 2–3 days, worsening pain, fever, or lymphangitis.",
+              "safetyNet": true,
+              "referralIfWorsen": true
+            }
+          },
+          "no": {
+            "id": "reassess_extent",
+            "type": "action",
+            "title": "Unable to confirm widespread criteria",
+            "actions": [
+              "Reassess lesion count and distribution; consider localised pathway or alternative diagnoses.",
+              "If lesions are crusting but patient is high risk (e.g. immunosuppressed), seek prescriber advice.",
+              "Do not supply oral antibiotics unless PGD criteria are met; provide self-care guidance meanwhile."
+            ],
+            "safetyNet": true
+          }
+        }
+      },
+      "no": {
+        "id": "alt_diagnosis",
+        "type": "action",
+        "title": "Impetigo less likely",
+        "actions": [
+          "Consider differentials (HSV, eczema herpeticum, insect bites, scabies, contact dermatitis).",
+          "Arrange appropriate tests or referral; provide safety-netting if diagnosis uncertain.",
+          "Avoid PGD supply until diagnosis confirmed."
+        ],
+        "safetyNet": true
+      }
+    }
+  }
+}

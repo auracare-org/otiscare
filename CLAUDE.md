@@ -4,22 +4,22 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-- `npm run dev` - Start development server with Vite
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run check` - Type check with svelte-check
-- `npm run check:watch` - Type check in watch mode
-- `npm run lint` - Run prettier and eslint checks
-- `npm run format` - Format code with prettier
-- `npm run test` - Run all tests once
-- `npm run test:unit` - Run tests in watch mode
+- `yarn run dev` - Start development server with Vite
+- `yarn run build` - Build for production
+- `yarn run preview` - Preview production build
+- `yarn run check` - Type check with svelte-check
+- `yarn run check:watch` - Type check in watch mode
+- `yarn run lint` - Run prettier and eslint checks
+- `yarn run format` - Format code with prettier
+- `yarn run test` - Run all tests once
+- `yarn run test:unit` - Run tests in watch mode
 
 ## Database Commands
 
-- `npm run db:push` - Push schema changes to database
-- `npm run db:generate` - Generate migrations from schema
-- `npm run db:migrate` - Run pending migrations
-- `npm run db:studio` - Open Drizzle Studio for database inspection
+- `yarn run db:push` - Push schema changes to database
+- `yarn run db:generate` - Generate migrations from schema
+- `yarn run db:migrate` - Run pending migrations
+- `yarn run db:studio` - Open Drizzle Studio for database inspection
 
 ## Architecture Overview
 

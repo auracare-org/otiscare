@@ -9,14 +9,14 @@
 - Env: `.env` (see `.env.example`); `DATABASE_URL` is required.
 
 ## Build, Test, and Development Commands
-- `npm run dev` — start Vite dev server.
-- `npm run build` — build production bundle.
-- `npm run preview` — preview the production build.
-- `npm run check` — Svelte + TypeScript type checks.
-- `npm run lint` — Prettier check and ESLint.
-- `npm run format` — auto-format the repo.
-- `npm run test` — run Vitest (node + browser projects).
-- `npm run db:generate|db:push|db:migrate|db:studio` — Drizzle migrations and studio (requires `DATABASE_URL`).
+- `yarn run dev` — start Vite dev server.
+- `yarn run build` — build production bundle.
+- `yarn run preview` — preview the production build.
+- `yarn run check` — Svelte + TypeScript type checks.
+- `yarn run lint` — Prettier check and ESLint.
+- `yarn run format` — auto-format the repo.
+- `yarn run test` — run Vitest (node + browser projects).
+- `yarn run db:generate|db:push|db:migrate|db:studio` — Drizzle migrations and studio (requires `DATABASE_URL`).
 
 ## Coding Style & Naming Conventions
 - Language: TypeScript + Svelte 5. Tabs for indentation, single quotes, `printWidth` 100 (see `.prettierrc`).

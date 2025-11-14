@@ -1,0 +1,233 @@
+{
+  "pathway": "Pharmacy First - Acute Sore Throat (≥5 years)",
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-02-15",
+    "sources": [
+      "https://clinicalpathways.uk/pharmacy/acute-sore-throat/",
+      "https://cks.nice.org.uk/topics/sore-throat-acute/",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-5a.-Acute-sore-throat-phenoxymethylpenicillin-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-5b.-Acute-sore-throat-clarithromycin-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-5c.-Acute-sore-throat-erythromycin-patient-group-direction-Pharmacy-First.pdf"
+    ],
+    "niceGuideline": "NICE CKS Acute sore throat"
+  },
+  "notes": [
+    "Scope: non-pregnant individuals ≥5 years with suspected streptococcal sore throat. Exclude pregnant people <16 years, immunocompromised patients with red flags, and those needing immediate medical attention.",
+    "Use FeverPAIN to guide practice: Fever (>38 °C); purulence; rapid attendance (≤3 days); severely inflamed tonsils; no cough/coryza. Score each criterion 1 point.",
+    "Provide TARGET Respiratory Tract Infection leaflets for self-care advice and reinforce analgesia (paracetamol/ibuprofen), fluid intake, rest, and avoidance of smoke exposure.",
+    "Explain that antibiotics shorten symptoms by only ~1 day even in high scores; shared decision-making should reflect severity, patient preference, and clinical judgement.",
+    "Refer urgently if scarlet fever, peritonsillar abscess (quinsy), epiglottitis, sepsis, or suspected head/neck cancer features develop."
+  ],
+  "decisionTree": {
+    "id": "risk_screen",
+    "type": "decision",
+    "title": "Consider the risk of deterioration or serious illness",
+    "question": "Does the patient have complications or high-risk features?",
+    "details": {
+      "airwayOrSepsis": [
+        "Drooling, voice change, stridor, severe respiratory distress.",
+        "Sepsis criteria or NEWS2 trigger (tachycardia, hypotension, rigors)."
+      ],
+      "immediateReferral": [
+        "Suspected peritonsillar abscess (quinsy) or epiglottitis.",
+        "Severe dehydration or inability to swallow fluids."
+      ]
+    },
+    "yes": {
+      "id": "urgent_referral",
+      "type": "action",
+      "title": "Onward referral",
+      "actions": [
+        "Escalate to GP, urgent care, or emergency services as appropriate.",
+        "Consider NEWS2 calculation prior to calling 999/A&E.",
+        "Do not supply antibiotics via PGD when complications suspected."
+      ],
+      "safetyNet": true
+    },
+    "no": {
+      "id": "redflag_screen",
+      "type": "decision",
+      "title": "Red flag assessment",
+      "question": "Does the patient have any of these features?",
+      "details": {
+        "redFlags": [
+          "Signs of scarlet fever (strawberry tongue, sandpaper rash, circumoral pallor).",
+          "Suspected glandular fever (lymphadenopathy, fatigue, splenomegaly).",
+          "Signs of suspected head/neck cancer (persistent hoarseness, dysphagia, unilateral sore throat >3 weeks).",
+          "Immunosuppression (e.g. chemotherapy, HIV with low CD4, high-dose steroids)."
+        ]
+      },
+      "yes": {
+        "id": "specialist_referral",
+        "type": "action",
+        "title": "Refer for medical assessment",
+        "actions": [
+          "Arrange GP review or appropriate specialist pathway.",
+          "Document red flag findings and advise patient to seek urgent care if symptoms worsen.",
+          "Provide symptomatic relief guidance while awaiting review."
+        ],
+        "safetyNet": true
+      },
+      "no": {
+        "id": "feverpain_score",
+        "type": "decision",
+        "title": "FeverPAIN score",
+        "question": "What is the FeverPAIN score?",
+        "details": {
+          "scoring": [
+            "Give 1 point each: fever >38 °C, purulence, rapid presentation (≤3 days), severely inflamed tonsils, no cough/coryza.",
+            "Scores 0–1: low streptococcal probability.",
+            "Scores 2–3: intermediate probability—safety-net and consider delayed strategy.",
+            "Scores 4–5: high probability—shared decision about immediate antibiotic."
+          ]
+        },
+        "choices": [
+          {
+            "label": "Score 0–1",
+            "next": {
+              "id": "self_care_low",
+              "type": "action",
+              "title": "Self-care and pain relief",
+              "actions": [
+                "Explain that antibiotics are not indicated; offer OTC analgesia (paracetamol/ibuprofen).",
+                "Advise warm fluids, honey (over 1 year), and rest; avoid smoking exposure.",
+                "Encourage return if symptoms significantly worsen or persist beyond 1 week."
+              ],
+              "followUp": "Arrange pharmacist review if symptoms fail to improve after 1 week.",
+              "safetyNet": true
+            }
+          },
+          {
+            "label": "Score 2–3",
+            "next": {
+              "id": "self_care_intermediate",
+              "type": "action",
+              "title": "Self-care + watchful waiting",
+              "actions": [
+                "Discuss that antibiotics offer limited benefit; focus on analgesia and hydration.",
+                "Provide TARGET RTI leaflet and agree to reassess if no improvement after 3–5 days.",
+                "Document shared plan; consider delayed antibiotic only after reassessment if symptoms persist or worsen."
+              ],
+              "followUp": "Ask patient to return in 3–5 days if symptoms unchanged for pharmacist reassessment.",
+              "safetyNet": true
+            }
+          },
+          {
+            "label": "Score 4–5",
+            "next": {
+              "id": "severity_branch",
+              "type": "decision",
+              "title": "Gateway point",
+              "question": "Based on shared decision-making, are symptoms severe enough to justify immediate antibiotics?",
+              "details": {
+                "mild": [
+                  "Mild-to-moderate pain with ability to swallow and no systemic illness—consider analgesia first."
+                ],
+                "severe": [
+                  "Severe throat pain, high fever, pronounced tonsillar exudate, or patient preference after counselling."
+                ]
+              },
+              "yes": {
+                "id": "penicillin_allergy",
+                "type": "decision",
+                "title": "Reported penicillin allergy",
+                "question": "Is there a confirmed penicillin allergy?",
+                "yes": {
+                  "id": "pregnancy_check",
+                  "type": "decision",
+                  "title": "Pregnancy status",
+                  "question": "Is the patient pregnant?",
+                  "yes": {
+                    "id": "erythromycin_treatment",
+                    "type": "treatment",
+                    "title": "Erythromycin (pregnant with penicillin allergy)",
+                    "drug": "Erythromycin",
+                    "durationDays": 5,
+                    "dose": {
+                      "Adults": "500 mg four times daily"
+                    },
+                    "formulations": [
+                      "Tablets/capsules 250 mg, 500 mg",
+                      "Oral suspension 125 mg/5 mL, 250 mg/5 mL"
+                    ],
+                    "route": "Oral, ideally with food to improve tolerance.",
+                    "legalCategory": "POM (PGD)",
+                    "plus": [
+                      "Discuss potential GI side effects and adherence for full 5-day course.",
+                      "Advise to seek care if jaundice, severe vomiting, or rash occurs."
+                    ],
+                    "followUp": "Review if symptoms persist or worsen after 3 days.",
+                    "safetyNet": true,
+                    "referralIfWorsen": true
+                  },
+                  "no": {
+                    "id": "clarithromycin_treatment",
+                    "type": "treatment",
+                    "title": "Clarithromycin (penicillin allergy)",
+                    "drug": "Clarithromycin",
+                    "durationDays": 5,
+                    "dose": {
+                      "Children 5–11 years": "7.5 mg/kg twice daily (max 250 mg)",
+                      "≥12 years and adults": "250 mg twice daily"
+                    },
+                    "formulations": [
+                      "Tablets 250 mg, 500 mg",
+                      "Suspension 125 mg/5 mL, 250 mg/5 mL"
+                    ],
+                    "route": "Oral with water; take with or without food.",
+                    "legalCategory": "POM (PGD)",
+                    "plus": [
+                      "Check interactions (statins, anticoagulants, QT-prolonging drugs).",
+                      "Encourage hydration and continue self-care strategies."
+                    ],
+                    "followUp": "Seek review if no improvement after 3 days or sooner if worsening.",
+                    "safetyNet": true,
+                    "referralIfWorsen": true
+                  }
+                },
+                "no": {
+                  "id": "phenoxymethylpenicillin_treatment",
+                  "type": "treatment",
+                  "title": "Phenoxymethylpenicillin (first line)",
+                  "drug": "Phenoxymethylpenicillin",
+                  "durationDays": 5,
+                  "dose": {
+                    "Children 5–10 years": "250 mg four times daily",
+                    "Children 11–17 years": "500 mg four times daily",
+                    "Adults": "500 mg four times daily"
+                  },
+                  "formulations": [
+                    "250 mg tablets",
+                    "Oral suspension 125 mg/5 mL, 250 mg/5 mL"
+                  ],
+                  "route": "Oral on an empty stomach (30 minutes before food or 2 hours after).",
+                  "legalCategory": "POM (PGD)",
+                  "plus": [
+                    "Advise swallowing tablets whole with water; avoid double doses if one missed.",
+                    "Continue analgesia and fluids even when antibiotic supplied."
+                  ],
+                  "followUp": "Return if symptoms fail to improve after completing 5 days or worsen rapidly.",
+                  "safetyNet": true,
+                  "referralIfWorsen": true
+                }
+              },
+              "no": {
+                "id": "supportive_care_highscore",
+                "type": "action",
+                "title": "Shared decision: supportive care",
+                "actions": [
+                  "Patient opts for self-care first; provide analgesia plan and reassurance.",
+                  "Agree review if symptoms remain severe after 3 days; consider delayed prescription if clinically appropriate.",
+                  "Document discussion using TARGET RTI resources."
+                ],
+                "followUp": "Pharmacist reassessment if no improvement within 3–5 days.",
+                "safetyNet": true
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

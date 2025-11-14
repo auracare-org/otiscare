@@ -1,0 +1,217 @@
+{
+  "pathway": "Pharmacy First - Shingles (adults 18 years and over)",
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-02-15",
+    "sources": [
+      "https://clinicalpathways.uk/pharmacy/shingles/",
+      "https://cks.nice.org.uk/topics/shingles/",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-2a.-Shingles-aciclovir-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-2b.-Shingles-valaciclovir-patient-group-direction-Pharmacy-First.pdf"
+    ],
+    "niceGuideline": "NICE CKS Shingles"
+  },
+  "notes": [
+    "Exclude pregnant individuals and anyone under 18 years - outside of the Pharmacy First specification.",
+    "Document rash onset, dermatomal distribution, vesicle status, pain score and risk factors in the consultation record and include the Pharmacy First notification to the GP within 1 working day.",
+    "Share the British Association of Dermatologists shingles leaflet (self-care, hygiene, covering rash, avoiding contact with non-immune pregnant people, immunosuppressed individuals and babies <1 month).",
+    "For immunosuppressed patients notify the GP (or urgent GP email) the same day after supply and advise attendance at A&E/999 if systemic symptoms or rapidly spreading rash develop.",
+    "Encourage adequate analgesia (paracetamol +/- ibuprofen or OTC co-codamol) and signpost eligible adults to shingles vaccination once fully recovered."
+  ],
+  "decisionTree": {
+    "id": "complication_screen",
+    "type": "decision",
+    "title": "Consider the risk of deterioration or serious illness",
+    "question": "Does the patient have complications or meet NHS Pharmacy First high-risk criteria?",
+    "details": {
+      "urgentComplications": [
+        "Ophthalmic involvement (eye pain, visual change, periorbital swelling, vesicles on the nose/Hutchinson sign).",
+        "Neurological symptoms: meningism, encephalitis signs, confusion, altered mental state, acute headache, facial palsy/Ramsay Hunt, limb weakness or unsteady gait.",
+        "Disseminated or multidermatomal shingles, rapidly spreading rash or signs of bacterial superinfection.",
+        "Severe systemic illness, NEWS2 trigger, sepsis features or immunosuppressed patient with red flags."
+      ],
+      "highRiskGroups": [
+        "Pregnant individuals (Pharmacy First exclusion).",
+        "Adults with significant cardiac, respiratory, renal or hepatic disease.",
+        "People on high-dose systemic corticosteroids, chemotherapy, radiotherapy, biological or JAK inhibitor therapy.",
+        "Solid organ or stem-cell transplant recipients, advanced HIV (CD4 <200) or other severe immunodeficiency."
+      ],
+      "escalation": [
+        "Calculate NEWS2 before signposting to A&E or calling 999 for life-threatening deterioration.",
+        "Escalate ophthalmic or neurological presentations for same-day medical assessment even if vitals stable."
+      ]
+    },
+    "yes": {
+      "id": "urgent_referral",
+      "type": "action",
+      "title": "Urgent medical review required",
+      "actions": [
+        "Consider NEWS2 and arrange 999/A&E transfer for life-threatening illness.",
+        "Refer immediately to general practice, urgent care or ophthalmology/neurology when complications suspected.",
+        "Provide safety-netting and document reason for escalation."
+      ],
+      "safetyNet": true
+    },
+    "no": {
+      "id": "typical_features",
+      "type": "decision",
+      "title": "Diagnose shingles on clinical grounds",
+      "question": "Does the patient follow the typical progression of shingles clinical features?",
+      "details": {
+        "typicalFeatures": [
+          "Prodromal dermatomal pain, tingling or burning followed by unilateral vesicular eruption on an erythematous base.",
+          "Grouped vesicles limited to one dermatome (thoracic, cranial) that crust within 7-10 days.",
+          "Possible mild fever, headache or malaise but otherwise systemically well."
+        ],
+        "considerAlternatives": [
+          "Bacterial cellulitis/impetigo, eczema herpeticum, contact dermatitis, insect bites, herpes simplex."
+        ],
+        "documentation": [
+          "Record dermatomes involved, stage of lesions and pain score using VAS or British Pain Society scale."
+        ]
+      },
+      "yes": {
+        "id": "gateway_72h",
+        "type": "decision",
+        "title": "Gateway point",
+        "question": "Has the patient presented within 72 hours of rash onset?",
+        "details": {
+          "timingNotes": [
+            "Antivirals provide greatest benefit when started within 72 hours of rash onset.",
+            "Use the first appearance of vesicles or neuropathic pain if the exact time of eruption is unclear.",
+            "Document onset date/time and dermatomes when submitting the Pharmacy First notification."
+          ]
+        },
+        "yes": {
+          "id": "criteria_within_72h",
+          "type": "decision",
+          "question": "Does the patient meet ANY of the Pharmacy First criteria (≤72 hours)?",
+          "details": {
+            "criteriaWithin72h": [
+              "Immunosuppressed (chemotherapy, radiotherapy, high-dose systemic steroids ≥40 mg prednisolone daily for ≥1 week, biologics, transplant medicines, advanced HIV).",
+              "Non-truncal involvement (cervical, cranial, limb or perineal shingles).",
+              "Moderate or severe pain using a validated pain scale.",
+              "Moderate or severe rash defined as confluent lesions.",
+              "Age over 50 years."
+            ]
+          },
+          "yes": {
+            "id": "antiviral_supply_72h",
+            "type": "treatment",
+            "title": "Offer antiviral via PGD (≤72 hours)",
+            "drug": "Aciclovir (first line) or Valaciclovir (if aciclovir unsuitable)",
+            "durationDays": 7,
+            "dose": {
+              "Aciclovir first line": "800 mg orally five times daily (every 4 hours while awake). Start immediately and complete 7 days.",
+              "Valaciclovir (if aciclovir contraindicated/unavailable, immunosuppressed or adherence risk)": "1 g orally three times daily for 7 days."
+            },
+            "formulations": [
+              "Aciclovir 800 mg tablets (preferred) or 400 mg/200 mg tablets if 800 mg unavailable (swallow whole or disperse in ≥50 mL water).",
+              "Valaciclovir 500 mg tablets (swallow whole with water)."
+            ],
+            "route": "Oral administration during waking hours.",
+            "legalCategory": "POM supplied under PGD",
+            "plus": [
+              "Provide British Association of Dermatologists shingles leaflet and reinforce infection prevention (cover lesions, avoid sharing towels, hand hygiene, avoid contact with pregnant/non-immune/immunosuppressed contacts).",
+              "Optimise analgesia: paracetamol +/- ibuprofen or OTC co-codamol; refer to GP if pain uncontrolled.",
+              "Discuss shingles vaccination eligibility once recovered (at least 7 days after lesions crust)."
+            ],
+            "followUp": "If symptoms worsen rapidly, the rash spreads, or there is no improvement after completing 7 days, seek urgent medical review/A&E. Notify GP the same day for immunosuppressed patients and document Pharmacy First supply.",
+            "safetyNet": true,
+            "referralIfWorsen": true
+          },
+          "no": {
+            "id": "no_treatment_criteria_72h",
+            "type": "action",
+            "title": "Patient does not meet ≤72 hour treatment criteria",
+            "actions": [
+              "Share self-care advice, analgesia plan and safety-netting.",
+              "Explain that antivirals are not indicated without PGD criteria and ensure the patient knows when/how to seek help if the rash worsens."
+            ],
+            "safetyNet": true
+          }
+        },
+        "no": {
+          "id": "window_within_week",
+          "type": "decision",
+          "question": "Does the patient have shingles up to one week (7 days) after rash onset?",
+          "details": {
+            "timingNotes": [
+              "Late presentations (>72 hours) may still benefit from antivirals if new vesicles continue or high-risk features present.",
+              "If rash onset >7 days ago, antivirals are outside PGD scope unless directed by a prescriber."
+            ]
+          },
+          "yes": {
+            "id": "criteria_within_week",
+            "type": "decision",
+            "question": "Does the patient meet ANY of the Pharmacy First criteria (within 7 days)?",
+            "details": {
+              "criteriaWithin7d": [
+                "Immunosuppressed (see criteria above).",
+                "Continued vesicle formation.",
+                "Severe pain despite analgesia.",
+                "High risk of severe shingles (e.g. severe atopic dermatitis/eczema).",
+                "All patients aged 70 years and over."
+              ]
+            },
+            "yes": {
+              "id": "antiviral_supply_within_week",
+              "type": "treatment",
+              "title": "Offer antiviral via PGD (≤7 days with risk factors)",
+              "drug": "Aciclovir (first line) or Valaciclovir (if aciclovir unsuitable)",
+              "durationDays": 7,
+              "dose": {
+                "Aciclovir first line": "800 mg orally five times daily (every 4 hours while awake). Start immediately and complete 7 days.",
+                "Valaciclovir (if aciclovir contraindicated/unavailable, immunosuppressed or adherence risk)": "1 g orally three times daily for 7 days."
+              },
+              "formulations": [
+                "Aciclovir 800 mg tablets (preferred) or 400 mg/200 mg tablets if 800 mg unavailable (swallow whole or disperse in ≥50 mL water).",
+                "Valaciclovir 500 mg tablets (swallow whole with water)."
+              ],
+              "route": "Oral administration during waking hours.",
+              "legalCategory": "POM supplied under PGD",
+              "plus": [
+                "Provide British Association of Dermatologists shingles leaflet and reinforce infection prevention (cover lesions, avoid sharing towels, hand hygiene, avoid contact with pregnant/non-immune/immunosuppressed contacts).",
+                "Optimise analgesia: paracetamol +/- ibuprofen or OTC co-codamol; refer to GP if pain uncontrolled.",
+                "Discuss shingles vaccination eligibility once recovered (at least 7 days after lesions crust)."
+              ],
+              "followUp": "If symptoms worsen rapidly, the rash spreads, or there is no improvement after completing 7 days, seek urgent medical review/A&E. Notify GP the same day for immunosuppressed patients and document Pharmacy First supply.",
+              "safetyNet": true,
+              "referralIfWorsen": true
+            },
+            "no": {
+              "id": "no_treatment_criteria_week",
+              "type": "action",
+              "title": "Patient does not meet ≥72 hour treatment criteria",
+              "actions": [
+                "Explain that antivirals are outside PGD scope without continued vesicles, severe pain or other risk factors.",
+                "Provide self-care support, analgesia guidance and red flag advice (seek help if systemic symptoms or rash spreads)."
+              ],
+              "safetyNet": true
+            }
+          },
+          "no": {
+            "id": "no_treatment_over_week",
+            "type": "action",
+            "title": "Rash onset >7 days",
+            "actions": [
+              "Patient does not meet treatment criteria - share self-care and safety-netting advice.",
+              "Refer to GP if pain, rash or complications persist beyond 7 days."
+            ],
+            "safetyNet": true
+          }
+        }
+      },
+      "no": {
+        "id": "alternative_diagnosis",
+        "type": "action",
+        "title": "Shingles less likely",
+        "actions": [
+          "Consider alternative diagnoses (impetigo, cellulitis, eczema herpeticum, HSV, contact dermatitis).",
+          "Arrange onward referral or treatment according to the suspected condition and continue safety-netting."
+        ],
+        "safetyNet": true
+      }
+    }
+  }
+}

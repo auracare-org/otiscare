@@ -1,0 +1,260 @@
+{
+  "pathway": "Pharmacy First - Acute Sinusitis (≥12 years)",
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-02-15",
+    "sources": [
+      "https://clinicalpathways.uk/pharmacy/acute-sinusitis/",
+      "https://cks.nice.org.uk/topics/sinusitis-acute/",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-6a.-Acute-sinusitis-fluticasone-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-6b.-Acute-sinusitis-phenoxymethylpenicillin-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-6c.-Acute-sinusitis-clarithromycin-patient-group-direction-Pharmacy-First.pdf",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-6d.-Acute-sinusitis-erythromycin-patient-group-direction-Pharmacy-First.pdf"
+    ],
+    "niceGuideline": "NICE CKS Acute sinusitis"
+  },
+  "notes": [
+    "Acute sinusitis usually viral and self-limiting; antibiotics rarely shorten illness. Provide TARGET RTI self-care leaflets and emphasise analgesia, hydration, and nasal saline rinses.",
+    "Exclude pregnant individuals under 16 years, immunosuppressed patients, chronic sinusitis (>12 weeks) and those requiring urgent ENT review (orbital involvement, severe swelling, CNS symptoms).",
+    "Use shared decision-making to balance high-dose intranasal corticosteroid vs antibiotic supply; record severity, duration (>10 days), and patient preference.",
+    "If providing fluticasone, counsel on correct nasal spray technique, potential epistaxis, and off-label status for sinusitis (supported by NICE).",
+    "Safety-net for red flags: periorbital cellulitis, visual disturbance, severe frontal headache, drowsiness, or neurological signs—refer immediately."
+  ],
+  "decisionTree": {
+    "id": "risk_screen",
+    "type": "decision",
+    "title": "Consider the risk of deterioration or serious illness",
+    "question": "Does the patient have complications or high-risk features?",
+    "details": {
+      "complications": [
+        "Periorbital cellulitis or swelling",
+        "Severe facial pain with neurological symptoms",
+        "Signs of sepsis or meningitis"
+      ],
+      "escalation": [
+        "Ophthalmic involvement, cranial nerve palsy, altered mental status"
+      ]
+    },
+    "yes": {
+      "id": "urgent_referral",
+      "type": "action",
+      "title": "Onward referral",
+      "actions": [
+        "Arrange same-day GP/ENT/A&E assessment.",
+        "Consider NEWS2 prior to calling emergency services.",
+        "Do not supply under PGD when complications suspected."
+      ],
+      "safetyNet": true
+    },
+    "no": {
+      "id": "diagnosis_screen",
+      "type": "decision",
+      "title": "Clinical diagnosis",
+      "question": "Diagnose acute sinusitis based on one or more of: nasal blockage/congestion OR nasal discharge/postnasal drip PLUS one of facial pain/pressure, hyposmia, or cough (children).",
+      "yes": {
+        "id": "duration_check",
+        "type": "decision",
+        "title": "Symptom duration",
+        "question": "Has the patient had symptoms for ≤10 days?",
+        "yes": {
+          "id": "self_care_initial",
+          "type": "action",
+          "title": "Supportive care",
+          "actions": [
+            "Reassure that sinusitis usually lasts 2–3 weeks and resolves without antibiotics.",
+            "Offer analgesics, nasal saline rinses, steam inhalation, hydration, and rest.",
+            "Advise to revisit if symptoms worsen or persist beyond 10 days."
+          ],
+          "safetyNet": true
+        },
+        "no": {
+          "id": "no_improvement",
+          "type": "decision",
+          "title": "Symptoms >10 days without improvement",
+          "question": "Do symptoms show little improvement after 10 days?",
+          "no": {
+            "id": "continue_selfcare",
+            "type": "action",
+            "title": "Self-care and pain relief",
+            "actions": [
+              "Continue supportive management and reassess if deterioration occurs.",
+              "Encourage adherence to nasal hygiene and analgesics."
+            ],
+            "safetyNet": true
+          },
+          "yes": {
+            "id": "gateway_features",
+            "type": "decision",
+            "title": "Gateway point",
+            "question": "Does the patient have ≥2 features suggesting acute bacterial sinusitis?",
+            "details": {
+              "bacterialFeatures": [
+                "Marked deterioration after initial improvement",
+                "Fever ≥38 °C",
+                "Unremitting purulent nasal discharge",
+                "Severe localised unilateral pain (toothache/jaw)"
+              ]
+            },
+            "no": {
+              "id": "steroid_option",
+              "type": "action",
+              "title": "Consider high-dose intranasal corticosteroid",
+              "actions": [
+                "Offer fluticasone furoate 27.5 micrograms (two actuations twice daily) for 14 days if symptoms moderate/severe and patient prefers non-antibiotic option.",
+                "Provide self-care advice and reassess if no improvement in 7 days."
+              ],
+              "followUp": "Pharmacist review if symptoms persist or worsen.",
+              "safetyNet": true
+            },
+            "yes": {
+              "id": "steroid_first_line",
+              "type": "decision",
+              "title": "First-line management",
+              "question": "Shared decision: start high-dose nasal steroid for 14 days (with analgesia). If unsuitable/ineffective consider antibiotics.",
+              "details": {
+                "steroidGuidance": [
+                  "Discuss benefits of intranasal corticosteroid as first option.",
+                  "Reserve antibiotics for severe or non-responsive cases."
+                ]
+              },
+              "yes": {
+                "id": "steroid_course",
+                "type": "treatment",
+                "title": "Fluticasone furoate nasal spray",
+                "drug": "Fluticasone furoate",
+                "durationDays": 14,
+                "dose": {
+                  "≥12 years": "Two actuations (27.5 mcg each) per nostril twice daily"
+                },
+                "formulations": [
+                  "27.5 micrograms/dose nasal spray"
+                ],
+                "route": "Intranasal",
+                "legalCategory": "POM (PGD)",
+                "plus": [
+                  "Off-label for sinusitis; supported by NICE.",
+                  "Show correct spray technique; avoid directing at nasal septum.",
+                  "Warn about possible epistaxis or local irritation."
+                ],
+                "followUp": "If no improvement within 7 days of treatment start, consider antibiotic assessment.",
+                "safetyNet": true
+              },
+              "no": {
+                "id": "antibiotic_branch",
+                "type": "decision",
+                "title": "Antibiotic consideration",
+                "question": "Does the patient meet criteria for antibiotics after steroid failure/intolerance?",
+                "yes": {
+                  "id": "penicillin_allergy",
+                  "type": "decision",
+                  "title": "Reported penicillin allergy",
+                  "question": "Is there a confirmed penicillin allergy?",
+                  "yes": {
+                    "id": "pregnancy_check",
+                    "type": "decision",
+                    "title": "Pregnancy consideration",
+                    "question": "Is the patient pregnant?",
+                    "yes": {
+                      "id": "erythromycin_treatment",
+                      "type": "treatment",
+                      "title": "Erythromycin (pregnant with penicillin allergy)",
+                      "drug": "Erythromycin",
+                      "durationDays": 5,
+                      "dose": {
+                        "Adults": "500 mg four times daily"
+                      },
+                      "formulations": [
+                        "Tablets/capsules 250 mg, 500 mg",
+                        "Oral suspension 125 mg/5 mL, 250 mg/5 mL"
+                      ],
+                      "route": "Oral",
+                      "legalCategory": "POM (PGD)",
+                      "plus": [
+                        "Take with food to minimise GI effects.",
+                        "Advise to seek care for jaundice or severe diarrhoea."
+                      ],
+                      "followUp": "Return if no improvement after 3 days.",
+                      "safetyNet": true,
+                      "referralIfWorsen": true
+                    },
+                    "no": {
+                      "id": "clarithromycin_or_doxy",
+                      "type": "treatment",
+                      "title": "Clarithromycin or Doxycycline",
+                      "drug": "Clarithromycin OR Doxycycline",
+                      "durationDays": 5,
+                      "dose": {
+                        "Clarithromycin": {
+                          "12–17 years": "250 mg twice daily",
+                          "Adults": "500 mg twice daily"
+                        },
+                        "Doxycycline (adults only)": "200 mg stat then 100 mg once daily"
+                      },
+                      "formulations": [
+                        "Clarithromycin tablets 250/500 mg, suspensions",
+                        "Doxycycline capsules 100 mg"
+                      ],
+                      "route": "Oral",
+                      "legalCategory": "POM (PGD)",
+                      "plus": [
+                        "Assess interactions (macrolides with statins/QT drugs; doxycycline contraindicated in pregnancy/under 12 years).",
+                        "Advise photosensitivity precautions with doxycycline."
+                      ],
+                      "followUp": "Review if symptoms worsen or fail to improve after treatment.",
+                      "safetyNet": true,
+                      "referralIfWorsen": true
+                    }
+                  },
+                  "no": {
+                    "id": "phenoxymethylpenicillin_treatment",
+                    "type": "treatment",
+                    "title": "Phenoxymethylpenicillin (first line antibiotic)",
+                    "drug": "Phenoxymethylpenicillin",
+                    "durationDays": 5,
+                    "dose": {
+                      "12–17 years": "500 mg four times daily",
+                      "Adults": "500 mg four times daily"
+                    },
+                    "formulations": [
+                      "250 mg tablets",
+                      "Oral suspension 250 mg/5 mL"
+                    ],
+                    "route": "Oral on empty stomach",
+                    "legalCategory": "POM (PGD)",
+                    "plus": [
+                      "Continue analgesia and nasal care during antibiotic course.",
+                      "Advise to complete 5-day course and seek review if no improvement."
+                    ],
+                    "followUp": "Return if symptoms worsen or fail to improve after completion.",
+                    "safetyNet": true,
+                    "referralIfWorsen": true
+                  }
+                },
+                "no": {
+                  "id": "monitor_after_steroid",
+                  "type": "action",
+                  "title": "Monitor after steroid",
+                  "actions": [
+                    "Continue steroid course and self-care; antibiotics not indicated yet.",
+                    "Review in 3–5 days if symptoms worsen or patient remains very symptomatic."
+                  ],
+                  "safetyNet": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "no": {
+        "id": "alternative_diagnosis",
+        "type": "action",
+        "title": "Acute sinusitis less likely",
+        "actions": [
+          "Consider allergic rhinitis, migraine, dental pathology, or chronic sinusitis.",
+          "Refer or treat according to alternative diagnosis and provide safety-netting."
+        ],
+        "safetyNet": true
+      }
+    }
+  }
+}

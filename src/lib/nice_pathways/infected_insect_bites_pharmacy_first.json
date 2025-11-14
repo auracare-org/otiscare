@@ -1,0 +1,278 @@
+{
+  "pathway": "Pharmacy First - Infected Insect Bites (≥1 year)",
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-02-15",
+    "sources": [
+      "https://clinicalpathways.uk/pharmacy/infected-insect-bites/",
+      "https://cks.nice.org.uk/topics/insect-bites-stings/",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-4a.-Infected-insect-bites-flucloxacillin-patient-group-direction-Pharmacy-First.pdf"
+    ],
+    "niceGuideline": "NICE CKS Insect Bites and Stings"
+  },
+  "notes": [
+    "Exclude pregnant individuals under 16 years and patients without signs of infection—rapid-onset reactions are usually inflammatory/allergic and resolve with self-care.",
+    "Document bite/sting history (location, timing, travel history, animal/human exposure), lesion photography if available, systemic symptoms, comorbidities and allergy status before deciding on PGD supply.",
+    "Share safety-netting: demarcate erythema, advise urgent review if spreading rapidly, fever, lymphangitis, severe pain, or systemic features occur.",
+    "Recommend oral antihistamines, topical corticosteroids and avoidance of scratching to reduce inflammation even when antibiotics are supplied.",
+    "Provide wound hygiene advice (wash with soap/water, keep nails short, avoid occlusive dressings) and counsel that mild redness/itching can persist up to 10 days." 
+  ],
+  "decisionTree": {
+    "id": "complication_screen",
+    "type": "decision",
+    "title": "Consider the risk of deterioration or serious illness",
+    "question": "Does the patient meet urgent referral criteria?",
+    "details": {
+      "urgentCriteria": [
+        "Systemically very unwell or NEWS2 trigger (tachycardia, fever, hypotension).",
+        "Rapidly spreading cellulitis, lymphangitis or suspicion of sepsis/necrotising infection.",
+        "Facial/periorbital involvement, airway compromise, or bites on genitals."
+      ],
+      "redFlags": [
+        "Suspected insect-borne disease (malaria, Lyme disease) requiring medical assessment.",
+        "Immunocompromised host (chemotherapy, uncontrolled diabetes, chronic ulcer)."
+      ]
+    },
+    "yes": {
+      "id": "urgent_referral",
+      "type": "action",
+      "title": "Onward referral",
+      "actions": [
+        "Consider NEWS2 before arranging emergency care.",
+        "Refer to GP, urgent care or A&E/999 as clinically indicated.",
+        "Do not supply under PGD; provide written safety-netting."
+      ],
+      "safetyNet": true
+    },
+    "no": {
+      "id": "exposure_screen",
+      "type": "decision",
+      "title": "Exposure needing medical review",
+      "question": "Does the patient meet ANY of the following criteria?",
+      "details": {
+        "highRiskExposures": [
+          "Bite or scratch caused by animal(s).",
+          "Bite caused by human(s).",
+          "Tick bite in the UK plus erythema migrans or Lyme disease signs.",
+          "Bite/sting acquired outside the UK with concern for malaria or other vector-borne disease.",
+          "Bite/sting caused by unusual or exotic insect."
+        ]
+      },
+      "yes": {
+        "id": "exposure_referral",
+        "type": "action",
+        "title": "Onward referral",
+        "actions": [
+          "Refer to GP or appropriate service for further assessment and prophylaxis.",
+          "Document exposure details and provide safety-netting advice."
+        ],
+        "safetyNet": true
+      },
+      "no": {
+        "id": "wait_48h",
+        "type": "decision",
+        "title": "Timing since bite",
+        "question": "Has it been at least 48 hours since the initial bite or sting?",
+        "details": {
+          "timingNotes": [
+            "Most inflammatory reactions improve within 48 hours without antibiotics.",
+            "Delay antibiotic consideration until ≥48 hours unless patient becomes systemically unwell."
+          ]
+        },
+        "no": {
+          "id": "early_reassurance",
+          "type": "action",
+          "title": "Too early for infection",
+          "actions": [
+            "Recommend self-care, oral antihistamines and/or topical steroids.",
+            "Advise patient to return if symptoms worsen or persist beyond 48 hours."
+          ],
+          "safetyNet": true
+        },
+        "yes": {
+          "id": "itch_principal",
+          "type": "decision",
+          "title": "Symptom assessment",
+          "question": "Is itch the principal symptom (no other infection signs)?",
+          "details": {
+            "itchAdvice": [
+              "Normal redness/itching can last up to 10 days.",
+              "Encourage avoidance of scratching and continue non-prescription treatments."
+            ]
+          },
+          "yes": {
+            "id": "itch_selfcare",
+            "type": "action",
+            "title": "Likely inflammatory reaction",
+            "actions": [
+              "Recommend self-care, oral antihistamine and/or topical steroids.",
+              "Provide safety-netting and explain infection is unlikely."
+            ],
+            "safetyNet": true
+          },
+          "no": {
+            "id": "infection_symptoms",
+            "type": "decision",
+            "title": "Acute infection symptoms",
+            "question": "Does the patient have acute onset of ≥3 infection symptoms?",
+            "details": {
+              "infectionSymptoms": [
+                "Redness of skin.",
+                "Pain or tenderness at the bite site.",
+                "Swelling of the skin.",
+                "Skin around the bite feels hot to touch."
+              ]
+            },
+            "no": {
+              "id": "monitor_selfcare",
+              "type": "action",
+              "title": "Monitor and support",
+              "actions": [
+                "Recommend self-care and OTC antihistamine/topical steroid.",
+                "Reassure that itching can persist up to 10 days and infection remains unlikely.",
+                "Avoid scratching to reduce inflammation and infection risk."
+              ],
+              "safetyNet": true
+            },
+            "yes": {
+              "id": "progression_screen",
+              "type": "decision",
+              "title": "Signs of spreading infection",
+              "question": "Does the patient meet ANY of the following criteria?",
+              "details": {
+                "spreadingSigns": [
+                  "Redness/swelling surrounding the bite is spreading.",
+                  "Evidence of pustular discharge at the bite/sting site."
+                ]
+              },
+              "no": {
+                "id": "demarcate_monitor",
+                "type": "action",
+                "title": "Localised infection suspected",
+                "actions": [
+                  "Demarcate erythema and ask patient to monitor.",
+                  "Provide self-care advice and review if symptoms worsen or fail to improve after 3 days of OTC treatment."
+                ],
+                "safetyNet": true
+              },
+              "yes": {
+                "id": "gateway_clinical",
+                "type": "decision",
+                "title": "Gateway point",
+                "question": "Does the patient meet ANY escalation criteria (requires referral)?",
+                "details": {
+                  "escalationCriteria": [
+                    "Patient systemically unwell.",
+                    "Comorbidity that may delay resolution (peripheral arterial disease, chronic venous insufficiency, lymphoedema, morbid obesity).",
+                    "Severe pain out of proportion to the wound (consider toxin-producing bacteria).",
+                    "Significant fluid/pus collection at site (consider incision and drainage)."
+                  ]
+                },
+                "yes": {
+                  "id": "escalation_referral",
+                  "type": "action",
+                  "title": "Referral required",
+                  "actions": [
+                    "Refer to GP/urgent care for potential oral/IV therapy or procedural management.",
+                    "Continue supportive care and document reasons for referral."
+                  ],
+                  "safetyNet": true
+                },
+                "no": {
+                  "id": "penicillin_allergy",
+                  "type": "decision",
+                  "title": "Reported penicillin allergy",
+                  "question": "Is there a confirmed penicillin allergy?",
+                  "yes": {
+                    "id": "pregnancy_check",
+                    "type": "decision",
+                    "title": "Pregnancy consideration",
+                    "question": "Is the adult patient pregnant?",
+                    "yes": {
+                      "id": "erythromycin_treatment",
+                      "type": "treatment",
+                      "title": "Erythromycin (penicillin allergy + pregnancy)",
+                      "drug": "Erythromycin",
+                      "durationDays": 5,
+                      "dose": {
+                        "Adults": "500 mg four times daily (or 1 g twice daily modified-release) for 5 days."
+                      },
+                      "formulations": [
+                        "Tablets/capsules 250 mg, 500 mg",
+                        "Oral suspension 125 mg/5 mL, 250 mg/5 mL"
+                      ],
+                      "route": "Oral (with food).",
+                      "legalCategory": "POM (PGD)",
+                      "plus": [
+                        "Counsel regarding GI effects and importance of completing 5-day course.",
+                        "Advise to seek review if jaundice, severe vomiting or rash occurs."
+                      ],
+                      "followUp": "Return/phone GP if no improvement within 2–3 days or earlier if worsening.",
+                      "safetyNet": true,
+                      "referralIfWorsen": true
+                    },
+                    "no": {
+                      "id": "clarithromycin_treatment",
+                      "type": "treatment",
+                      "title": "Clarithromycin (penicillin allergy)",
+                      "drug": "Clarithromycin",
+                      "durationDays": 5,
+                      "dose": {
+                        "Children 1–11 years by weight": {
+                          "≤8 kg": "7.5 mg/kg twice daily",
+                          "8–11 kg": "62.5 mg twice daily",
+                          "12–19 kg": "125 mg twice daily",
+                          "20–29 kg": "187.5 mg twice daily",
+                          "30–40 kg": "250 mg twice daily"
+                        },
+                        "≥12 years and adults": "500 mg twice daily"
+                      },
+                      "formulations": [
+                        "Tablets 250 mg, 500 mg",
+                        "Suspension 125 mg/5 mL, 250 mg/5 mL"
+                      ],
+                      "route": "Oral (with or without food).",
+                      "legalCategory": "POM (PGD)",
+                      "plus": [
+                        "Check drug interactions (statins, anticoagulants, QT prolongation).",
+                        "Encourage hydration and adherence; report taste changes or GI upset if severe."
+                      ],
+                      "followUp": "Reassess if symptoms worsen or fail to improve after 2–3 days.",
+                      "safetyNet": true,
+                      "referralIfWorsen": true
+                    }
+                  },
+                  "no": {
+                    "id": "fluclox_treatment",
+                    "type": "treatment",
+                    "title": "Flucloxacillin (first line)",
+                    "drug": "Flucloxacillin",
+                    "durationDays": 5,
+                    "dose": {
+                      "Children 1–2 years": "125 mg four times daily",
+                      "Children 2–9 years": "250 mg four times daily",
+                      "Children 10–17 years and adults": "500 mg four times daily"
+                    },
+                    "formulations": [
+                      "Capsules 250 mg, 500 mg",
+                      "Oral solution 125 mg/5 mL or 250 mg/5 mL (standard and sugar-free)"
+                    ],
+                    "route": "Oral on an empty stomach (1 hour before or 2 hours after food).",
+                    "legalCategory": "POM (PGD)",
+                    "plus": [
+                      "Warn that sugar-free solutions may taste unpleasant; discuss alternatives if adherence at risk.",
+                      "Advise monitoring for GI upset or cholestatic jaundice; stop and seek advice if symptoms occur."
+                    ],
+                    "followUp": "Return if symptoms worsen or do not improve after completion of 5 days.",
+                    "safetyNet": true,
+                    "referralIfWorsen": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

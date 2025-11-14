@@ -1,0 +1,196 @@
+{
+  "pathway": "Pharmacy First - Uncomplicated UTI (women 16–64)",
+  "metadata": {
+    "version": "1.0",
+    "lastUpdated": "2025-02-15",
+    "sources": [
+      "https://clinicalpathways.uk/pharmacy/uti/",
+      "https://www.england.nhs.uk/wp-content/uploads/2023/11/PRN01010-1a.-UTI-nitrofurantoin-patient-group-direction-Pharmacy-First.pdf",
+      "https://cks.nice.org.uk/topics/urinary-tract-infection-lower-women/",
+      "https://assets.publishing.service.gov.uk/media/5f8f9f03d3bf7f5b5238c3d6/UTI_flowchart_adult_women_.pdf"
+    ],
+    "niceGuideline": "NICE CKS Lower UTI"
+  },
+  "notes": [
+    "Scope: non-pregnant women aged 16–64 years with suspected lower UTI. Exclude men, pregnant individuals, urological abnormalities, catheters, recurrent UTIs (>=2 in 6 months or >=3 in 12 months), and recent nitrofurantoin use (<3 months).",
+    "Encourage patients to bring midstream urine only if advised; diagnosis is symptom-based using the three key signs (dysuria, new nocturia, cloudy urine).",
+    "Remind patients to increase fluid intake, avoid delaying voiding, and consider paracetamol/ibuprofen for pain. Provide the TARGET UTI leaflet and document safety-netting (urgent review if fever, flank pain, vomiting).",
+    "Nitrofurantoin is first-line unless eGFR <45 mL/min, suspected pyelonephritis, or other contraindications; ensure no allergy and review medicines for interactions.",
+    "Advise sexual health screening if vaginal discharge or STI risk factors present; refer immunosuppressed patients to GP."
+  ],
+  "decisionTree": {
+    "id": "sepsis_screen",
+    "type": "decision",
+    "title": "Consider risk of deterioration or sepsis",
+    "question": "Does the patient have sepsis risk factors (fever, rigors, tachycardia, hypotension, rapidly worsening systemic symptoms)?",
+    "details": {
+      "sepsisSigns": [
+        "Temperature ≥38 °C or <36 °C",
+        "Heart rate >130 bpm, respiratory rate >25/min",
+        "New confusion, mottled skin, cold extremities",
+        "Unable to stay awake or hypotension"
+      ]
+    },
+    "yes": {
+      "id": "sepsis_referral",
+      "type": "action",
+      "title": "Urgent referral",
+      "actions": [
+        "Call 999/A&E or arrange immediate GP review using NEWS2 guidance.",
+        "Do not supply antibiotics under PGD; monitor vitals while awaiting transfer."
+      ],
+      "safetyNet": true
+    },
+    "no": {
+      "id": "pyelo_screen",
+      "type": "decision",
+      "title": "Assess for pyelonephritis",
+      "question": "Are there new signs/symptoms of pyelonephritis?",
+      "details": {
+        "pyeloSigns": [
+          "Kidney/flank pain or tenderness",
+          "New onset fever ≥38 °C or shaking chills",
+          "Nausea/vomiting",
+          "Loin pain plus urinary symptoms"
+        ]
+      },
+      "yes": {
+        "id": "pyelo_referral",
+        "type": "action",
+        "title": "Urgent same-day referral",
+        "actions": [
+          "Refer to GP or urgent care for upper UTI management (possible IV therapy).",
+          "Advise patient to seek hospital care if unable to access GP promptly."
+        ],
+        "safetyNet": true
+      },
+      "no": {
+        "id": "alternate_cause",
+        "type": "decision",
+        "title": "Alternative diagnosis factors",
+        "question": "Does the patient have ANY of the following indicators of alternative diagnoses or red flags?",
+        "details": {
+          "alternateIndicators": [
+            "Vaginal discharge indicating STI/vaginitis",
+            "Recurrent UTIs (≥2/6 months or ≥3/12 months)",
+            "Known urinary tract abnormalities",
+            "Symptoms <48 hours following sexual exposure",
+            "Genitourinary syndrome of menopause/vulvovaginal atrophy",
+            "Patient is immunosuppressed"
+          ]
+        },
+        "yes": {
+          "id": "alt_referral",
+          "type": "action",
+          "title": "Onward referral",
+          "actions": [
+            "Refer to GP, sexual health clinic or specialist as appropriate.",
+            "Provide self-care advice and document reason for referral."
+          ],
+          "safetyNet": true
+        },
+        "no": {
+          "id": "symptom_gate",
+          "type": "decision",
+          "title": "Gateway point",
+          "question": "Does the patient have ≥1 of the three key diagnostic symptoms?",
+          "details": {
+            "keySymptoms": [
+              "Dysuria (burning pain when passing urine)",
+              "New nocturia (needing to pass urine at night)",
+              "Urine cloudy to the naked eye"
+            ]
+          },
+          "choices": [
+            {
+              "label": "0 symptoms",
+              "next": {
+                "id": "uti_unlikely",
+                "type": "action",
+                "title": "UTI less likely",
+                "actions": [
+                  "Explore other causes (STI, vaginal infection, interstitial cystitis).",
+                  "Provide self-care, encourage hydration, and refer if symptoms persist."
+                ],
+                "safetyNet": true
+              }
+            },
+            {
+              "label": "1 symptom",
+              "next": {
+                "id": "uti_possible",
+                "type": "action",
+                "title": "UTI equally likely to other diagnoses",
+                "actions": [
+                  "Consider urine dipstick or culture if accessible, or refer for GP testing.",
+                  "Offer self-care advice and advise review if symptoms worsen or persist."
+                ],
+                "followUp": "Ask patient to seek GP review if no improvement in 48 hours.",
+                "safetyNet": true
+              }
+            },
+            {
+              "label": "2–3 symptoms",
+              "next": {
+                "id": "severity_branch",
+                "type": "decision",
+                "title": "Symptom severity",
+                "question": "How severe are the symptoms?",
+                "details": {
+                  "severityGuidance": [
+                    "Mild symptoms without systemic features: encourage self-care first.",
+                    "Moderate/severe symptoms or patient preference: consider immediate antibiotic."
+                  ]
+                },
+                "choices": [
+                  {
+                    "label": "Mild / prefers self-care",
+                    "next": {
+                      "id": "mild_selfcare",
+                      "type": "action",
+                      "title": "Self-care and delayed review",
+                      "actions": [
+                        "Provide TARGET UTI leaflet, encourage fluids and analgesia.",
+                        "Arrange pharmacist review if symptoms not improving in 48 hours."
+                      ],
+                      "followUp": "Ask patient to return in 48 hours if no improvement for reassessment.",
+                      "safetyNet": true
+                    }
+                  },
+                  {
+                    "label": "Moderate/severe",
+                    "next": {
+                      "id": "nitrofurantoin_treatment",
+                      "type": "treatment",
+                      "title": "Nitrofurantoin (first line)",
+                      "drug": "Nitrofurantoin",
+                      "durationDays": 3,
+                      "dose": {
+                        "Adults": "100 mg modified-release capsule twice daily (every 12 hours)",
+                        "Alternative regimen": "50 mg immediate-release tablets/capsules four times daily"
+                      },
+                      "formulations": [
+                        "100 mg MR capsules",
+                        "50 mg immediate-release tablets/capsules"
+                      ],
+                      "route": "Oral with food",
+                      "legalCategory": "POM (PGD)",
+                      "plus": [
+                        "Contraindicated if eGFR <45 mL/min or suspected upper UTI.",
+                        "Advise that urine may turn yellow/brown; this is harmless.",
+                        "Complete 3-day course even if symptoms improve early."
+                      ],
+                      "followUp": "If no improvement within 48 hours of starting antibiotics, arrange GP review.",
+                      "safetyNet": true,
+                      "referralIfWorsen": true
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    }
+  }
+}
