@@ -151,9 +151,7 @@
 						<p class="text-sm text-neutral-600 pt-2">
 							<a
 								class="text-primary-600 underline"
-								href="https://www.mdcalc.com/calc/10083/national-early-warning-score-news-2"
-								target="_blank"
-								rel="noreferrer"
+								href="/news2"
 							>
 								Open the NEWS2 calculator
 							</a>
